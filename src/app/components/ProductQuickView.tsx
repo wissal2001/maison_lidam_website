@@ -1,5 +1,6 @@
 import { X } from 'lucide-react';
 import { Product } from './products';
+import { MediaGallery } from './MediaGallery';
 
 interface ProductQuickViewProps {
   product: Product;
@@ -30,10 +31,12 @@ export function ProductQuickView({ product, onClose, onAddToCart, onDevisClick }
 
         {/* Content */}
         <div className="p-6">
-          {/* Product Image */}
-          <div className="h-64 bg-gradient-to-br from-[#FAF6EE] to-[#e8e2d5] rounded-xl flex items-center justify-center mb-6">
-            <div className="text-9xl">{product.emoji}</div>
-          </div>
+          {/* Product Media */}
+          <MediaGallery
+            images={product.images}
+            productName={product.name}
+            emoji={product.emoji}
+          />
 
           {/* Product Info */}
           <h3 className="font-heading text-3xl font-bold text-[#2D4A2A] mb-3">

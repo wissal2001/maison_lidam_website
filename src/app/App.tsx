@@ -59,8 +59,6 @@ export default function App() {
       }
       return [...prev, { product, quantity: 1 }];
     });
-
-    setIsCartOpen(true);
   };
 
   const handleUpdateQuantity = (productId: string, quantity: number) => {
@@ -118,7 +116,13 @@ export default function App() {
 
       <TrustBanner />
 
-      <Catalog onAddToCart={handleAddToCart} onDevisClick={handleScrollToDevis} />
+      <Catalog
+        onAddToCart={handleAddToCart}
+        onDevisClick={handleScrollToDevis}
+        cartItems={cartItems}
+        onUpdateQuantity={handleUpdateQuantity}
+        onRemoveItem={handleRemoveItem}
+      />
 
       <CustomQuoteForm />
 

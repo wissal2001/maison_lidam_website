@@ -2,15 +2,19 @@ import { useState } from 'react';
 import { products, Product } from './products';
 import { ProductCard } from './ProductCard';
 import { ProductQuickView } from './ProductQuickView';
+import { CartItem } from './CartDrawer';
 
 type Category = 'all' | 'gateaux' | 'mini-sales' | 'plateaux';
 
 interface CatalogProps {
   onAddToCart: (product: Product) => void;
   onDevisClick: () => void;
+  cartItems: CartItem[];
+  onUpdateQuantity: (productId: string, quantity: number) => void;
+  onRemoveItem: (productId: string) => void;
 }
 
-export function Catalog({ onAddToCart, onDevisClick }: CatalogProps) {
+export function Catalog({ onAddToCart, onDevisClick, cartItems, onUpdateQuantity, onRemoveItem }: CatalogProps) {
   const [selectedCategory, setSelectedCategory] = useState<Category>('all');
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
 
@@ -64,6 +68,9 @@ export function Catalog({ onAddToCart, onDevisClick }: CatalogProps) {
               onAddToCart={onAddToCart}
               onQuickView={setQuickViewProduct}
               onDevisClick={onDevisClick}
+              cartItems={cartItems}
+              onUpdateQuantity={onUpdateQuantity}
+              onRemoveItem={onRemoveItem}
             />
           ))}
         </div>

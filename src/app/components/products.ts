@@ -7,6 +7,8 @@ export interface Product {
   unit: string;
   category: 'gateaux' | 'mini-sales' | 'plateaux' | 'plats';
   emoji: string;
+  images?: string[];
+  videos?: string[];
 }
 
 export const products: Product[] = [
@@ -19,48 +21,53 @@ export const products: Product[] = [
     price: 8,
     unit: 'douzaine',
     category: 'gateaux',
-    emoji: '🌙'
+    emoji: '🌙',
+    images: ['/images/corne-de-gazelle.jpeg']
   },
-  {
-    id: 'richbond',
-    name: 'Gâteaux richbond',
-    description: 'Fondants, noix de coco et amandes',
-    fullDescription: 'Gâteaux fondants à la noix de coco et aux amandes, une douceur irrésistible pour accompagner votre thé.',
-    price: 7,
-    unit: 'douzaine',
-    category: 'gateaux',
-    emoji: '🥥'
-  },
-  {
-    id: 'sables',
-    name: 'Sablés maison (خبز الدار)',
-    description: 'Recette traditionnelle, cuisson dorée',
-    fullDescription: 'Sablés marocains préparés selon la recette traditionnelle de nos grand-mères. Texture fondante et dorée à point.',
-    price: 0.5,
-    unit: 'pièce',
-    category: 'gateaux',
-    emoji: '🍪'
-  },
-  {
-    id: 'louz',
-    name: 'Louz (gâteau aux amandes)',
-    description: 'Amandes du terroir, miel pur',
-    fullDescription: 'Gâteaux aux amandes pur beurre, parfumés au miel. Une spécialité incontournable des pâtisseries marocaines.',
-    price: 9,
-    unit: 'douzaine',
-    category: 'gateaux',
-    emoji: '🌰'
-  },
-  {
-    id: 'pink-coco',
-    name: 'Box Pink Coco',
-    description: 'Boules coco roses, format cadeau',
-    fullDescription: 'Jolies boules à la noix de coco teintées en rose, présentées dans une box cadeau. Parfait pour offrir !',
-    price: 12,
-    unit: 'box de 12',
-    category: 'gateaux',
-    emoji: '💗'
-  },
+  // {
+  //   id: 'richbond',
+  //   name: 'Gâteaux richbond',
+  //   description: 'Fondants, noix de coco et amandes',
+  //   fullDescription: 'Gâteaux fondants à la noix de coco et aux amandes, une douceur irrésistible pour accompagner votre thé.',
+  //   price: 7,
+  //   unit: 'douzaine',
+  //   category: 'gateaux',
+  //   emoji: '🥥',
+  //   images: ['/images/fekas.webp']
+  // },
+  // {
+  //   id: 'sables',
+  //   name: 'Sablés maison (خبز الدار)',
+  //   description: 'Recette traditionnelle, cuisson dorée',
+  //   fullDescription: 'Sablés marocains préparés selon la recette traditionnelle de nos grand-mères. Texture fondante et dorée à point.',
+  //   price: 0.5,
+  //   unit: 'pièce',
+  //   category: 'gateaux',
+  //   emoji: '🍪',
+  //   images: ['/images/fekas.webp']
+  // },
+  // {
+  //   id: 'louz',
+  //   name: 'Louz (gâteau aux amandes)',
+  //   description: 'Amandes du terroir, miel pur',
+  //   fullDescription: 'Gâteaux aux amandes pur beurre, parfumés au miel. Une spécialité incontournable des pâtisseries marocaines.',
+  //   price: 9,
+  //   unit: 'douzaine',
+  //   category: 'gateaux',
+  //   emoji: '🌰',
+  //   images: ['/images/fekas.webp']
+  // },
+  // {
+  //   id: 'pink-coco',
+  //   name: 'Box Pink Coco',
+  //   description: 'Boules coco roses, format cadeau',
+  //   fullDescription: 'Jolies boules à la noix de coco teintées en rose, présentées dans une box cadeau. Parfait pour offrir !',
+  //   price: 12,
+  //   unit: 'box de 12',
+  //   category: 'gateaux',
+  //   emoji: '💗',
+  //   images: ['/images/fekas.webp']
+  // },
   {
     id: 'cookies',
     name: 'Cookies à la marocaine (3 versions)',
@@ -69,28 +76,31 @@ export const products: Product[] = [
     price: 8,
     unit: 'douzaine',
     category: 'gateaux',
-    emoji: '🍬'
+    emoji: '🍬',
+    images: ['/images/corne-de-gazelle.jpeg','/images/fekas.webp', '/images/fekas.webp']
   },
-  {
-    id: 'chebakia',
-    name: 'Chebakia / Griwech',
-    description: 'Miel, sésame, épices douces',
-    fullDescription: 'Pâtisserie en forme de fleur, frite puis enrobée de miel et saupoudrée de sésame. Traditionnellement servie pendant le Ramadan.',
-    price: 10,
-    unit: 'douzaine',
-    category: 'gateaux',
-    emoji: '🌺'
-  },
-  {
-    id: 'makrout',
-    name: 'Makrout aux dattes',
-    description: 'Semoule, dattes, huile d\'argan',
-    fullDescription: 'Gâteaux de semoule farcis aux dattes et parfumés à l\'huile d\'argan. Un classique de la pâtisserie maghrébine.',
-    price: 9,
-    unit: 'douzaine',
-    category: 'gateaux',
-    emoji: '📅'
-  },
+  // {
+  //   id: 'chebakia',
+  //   name: 'Chebakia / Griwech',
+  //   description: 'Miel, sésame, épices douces',
+  //   fullDescription: 'Pâtisserie en forme de fleur, frite puis enrobée de miel et saupoudrée de sésame. Traditionnellement servie pendant le Ramadan.',
+  //   price: 10,
+  //   unit: 'douzaine',
+  //   category: 'gateaux',
+  //   emoji: '🌺',
+  //   images: ['/images/fekas.webp']
+  // },
+  // {
+  //   id: 'makrout',
+  //   name: 'Makrout aux dattes',
+  //   description: 'Semoule, dattes, huile d\'argan',
+  //   fullDescription: 'Gâteaux de semoule farcis aux dattes et parfumés à l\'huile d\'argan. Un classique de la pâtisserie maghrébine.',
+  //   price: 9,
+  //   unit: 'douzaine',
+  //   category: 'gateaux',
+  //   emoji: '📅',
+  //   images: ['/images/fekas.webp']
+  // },
 
   // MINI-SALÉS & BUFFET
   {
@@ -101,18 +111,20 @@ export const products: Product[] = [
     price: 8,
     unit: 'douzaine',
     category: 'mini-sales',
-    emoji: '🍕'
+    emoji: '🍕',
+    images: ['/images/fekas.webp'],
   },
-  {
-    id: 'feuillete-sales',
-    name: 'Feuilletés salés assortis',
-    description: 'Thon, fromage, viande hachée',
-    fullDescription: 'Assortiment de feuilletés croustillants garnis au thon, fromage ou viande hachée épicée.',
-    price: 9,
-    unit: 'douzaine',
-    category: 'mini-sales',
-    emoji: '🥐'
-  },
+  // {
+  //   id: 'feuillete-sales',
+  //   name: 'Feuilletés salés assortis',
+  //   description: 'Thon, fromage, viande hachée',
+  //   fullDescription: 'Assortiment de feuilletés croustillants garnis au thon, fromage ou viande hachée épicée.',
+  //   price: 9,
+  //   unit: 'douzaine',
+  //   category: 'mini-sales',
+  //   emoji: '🥐',
+  //   images: ['/images/fekas.webp']
+  // },
   {
     id: 'plateau-sale-30',
     name: 'Plateau varié salé 30 pièces',
@@ -121,18 +133,20 @@ export const products: Product[] = [
     price: 25,
     unit: 'plateau',
     category: 'mini-sales',
-    emoji: '🍽️'
+    emoji: '🍽️',
+    images: ['/images/fekas.webp']
   },
-  {
-    id: 'pain-maison',
-    name: 'Pain maison (khobz)',
-    description: 'Cuit du jour, format individuel',
-    fullDescription: 'Pain marocain traditionnel cuit le jour même. Moelleux à l\'intérieur, croustillant à l\'extérieur.',
-    price: 0.5,
-    unit: 'pièce',
-    category: 'mini-sales',
-    emoji: '🥖'
-  },
+  // {
+  //   id: 'pain-maison',
+  //   name: 'Pain maison (khobz)',
+  //   description: 'Cuit du jour, format individuel',
+  //   fullDescription: 'Pain marocain traditionnel cuit le jour même. Moelleux à l\'intérieur, croustillant à l\'extérieur.',
+  //   price: 0.5,
+  //   unit: 'pièce',
+  //   category: 'mini-sales',
+  //   emoji: '🥖',
+  //   images: ['/images/fekas.webp']
+  // },
   {
     id: 'buffet-sale-sur-mesure',
     name: 'Buffet complet salé',
@@ -141,7 +155,8 @@ export const products: Product[] = [
     price: null,
     unit: 'sur devis',
     category: 'mini-sales',
-    emoji: '🎉'
+    emoji: '🎉',
+    images: ['/images/fekas.webp']
   },
 
   // PLATEAUX
@@ -153,7 +168,8 @@ export const products: Product[] = [
     price: 18,
     unit: 'plateau',
     category: 'plateaux',
-    emoji: '🎁'
+    emoji: '🎁',
+    images: ['/images/fekas.webp']
   },
   {
     id: 'plateau-prestige-30',
@@ -163,7 +179,8 @@ export const products: Product[] = [
     price: 30,
     unit: 'plateau',
     category: 'plateaux',
-    emoji: '✨'
+    emoji: '✨',
+    images: ['/images/fekas.webp']
   },
   {
     id: 'box-cadeau',
@@ -173,7 +190,8 @@ export const products: Product[] = [
     price: null,
     unit: 'sur devis',
     category: 'plateaux',
-    emoji: '🎀'
+    emoji: '🎀',
+    images: ['/images/fekas.webp']
   },
   {
     id: 'plateau-varie-maison',
@@ -183,6 +201,7 @@ export const products: Product[] = [
     price: null,
     unit: 'sur devis',
     category: 'plateaux',
-    emoji: '🏡'
+    emoji: '🏡',
+    images: ['/images/fekas.webp']
   },
 ];

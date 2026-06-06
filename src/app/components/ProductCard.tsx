@@ -1,14 +1,54 @@
-import { Eye } from 'lucide-react';
+import Image from 'next/image';
+import { Eye, Minus, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { Product } from './products';
+import { CartItem } from './CartDrawer';
 
 interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product) => void;
   onQuickView: (product: Product) => void;
   onDevisClick: () => void;
+  cartItems: CartItem[];
+  onUpdateQuantity: (productId: string, quantity: number) => void;
+  onRemoveItem: (productId: string) => void;
 }
 
-export function ProductCard({ product, onAddToCart, onQuickView, onDevisClick }: ProductCardProps) {
+export function ProductCard({
+  product, onAddToCart, onQuickView, onDevisClick,
+  cartItems, onUpdateQuantity, onRemoveItem
+}: ProductCardProps) {
+  const [justAdded, setJustAdded] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
+
+  const cartItem = cartItems.find(item => item.product.id === product.id);
+  const quantity = cartItem?.quantity || 0;
+  const hasPrice = product.price !== null;
+  const images = product.images || [];
+  const hasMultipleImages = images.length > 1;
+
+  useEffect(() => {
+    if (justAdded) {
+      const timer = setTimeout(() => setJustAdded(false), 800);
+      return () => clearTimeout(timer);
+    }
+  }, [justAdded]);
+
+  const handleAdd = () => {
+    onAddToCart(product);
+    setJustAdded(true);
+  };
+
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
   const getCategoryLabel = (category: string) => {
     const labels: Record<string, string> = {
       gateaux: 'Gâteaux',
@@ -19,13 +59,32 @@ export function ProductCard({ product, onAddToCart, onQuickView, onDevisClick }:
     return labels[category] || category;
   };
 
-  const hasPrice = product.price !== null;
-
   return (
-    <div className="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-[#2D4A2A]/10">
-      {/* Image Area with Emoji */}
-      <div className="relative h-48 bg-gradient-to-br from-[#FAF6EE] to-[#e8e2d5] flex items-center justify-center">
-        <div className="text-7xl">{product.emoji}</div>
+    <div className={`group bg-white rounded-xl shadow-sm transition-all duration-300 overflow-hidden border ${
+      justAdded
+        ? 'border-[#2D4A2A] shadow-md shadow-green-900/10'
+        : 'border-[#2D4A2A]/10 hover:shadow-xl'
+    }`}>
+      <style>{`
+        @keyframes qty-bounce {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.35); }
+        }
+      `}</style>
+
+      {/* Image Area */}
+      <div className="relative h-48 bg-gradient-to-br from-[#FAF6EE] to-[#e8e2d5] flex items-center justify-center overflow-hidden">
+        {images[imageIndex] ? (
+          <Image
+            src={images[imageIndex]}
+            alt={product.name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        ) : (
+          <div className="text-7xl">{product.emoji}</div>
+        )}
 
         {/* Category Badge */}
         <div className="absolute top-3 left-3 bg-[#2D4A2A] text-white px-3 py-1 rounded-full text-xs font-medium">
@@ -39,6 +98,37 @@ export function ProductCard({ product, onAddToCart, onQuickView, onDevisClick }:
         >
           <Eye className="w-4 h-4 text-[#2D4A2A]" />
         </button>
+
+        {/* Image Navigation */}
+        {hasMultipleImages && (
+          <>
+            <button
+              onClick={handlePrevImage}
+              className="absolute left-1 top-1/2 -translate-y-1/2 w-7 h-7 bg-white/70 hover:bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm text-[#2D4A2A]"
+              aria-label="Image précédente"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={handleNextImage}
+              className="absolute right-1 top-1/2 -translate-y-1/2 w-7 h-7 bg-white/70 hover:bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm text-[#2D4A2A]"
+              aria-label="Image suivante"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+            {/* Dots */}
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              {Array.from({ length: images.length }, (_, i) => (
+                <span
+                  key={i}
+                  className={`w-1.5 h-1.5 rounded-full ${
+                    i === imageIndex ? 'bg-white w-3' : 'bg-white/60'
+                  } transition-all`}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       {/* Content */}
@@ -62,14 +152,46 @@ export function ProductCard({ product, onAddToCart, onQuickView, onDevisClick }:
           )}
         </div>
 
-        {/* Action Button */}
+        {/* Action Button or Quantity Controls */}
         {hasPrice ? (
-          <button
-            onClick={() => onAddToCart(product)}
-            className="w-full bg-[#2D4A2A] text-white py-3 rounded-lg hover:bg-[#3D6338] transition-colors font-medium"
-          >
-            Ajouter au panier
-          </button>
+          quantity > 0 ? (
+            <div className="flex items-center justify-between bg-[#FAF6EE] rounded-lg p-1">
+              <button
+                onClick={() => {
+                  if (quantity === 1) {
+                    onRemoveItem(product.id);
+                  } else {
+                    onUpdateQuantity(product.id, quantity - 1);
+                  }
+                }}
+                className="w-10 h-10 flex items-center justify-center bg-white rounded-lg hover:bg-[#e8e2d5] transition-colors text-[#2D4A2A]"
+                aria-label="Diminuer la quantité"
+              >
+                <Minus className="w-4 h-4" />
+              </button>
+              <span
+                key={`qty-${quantity}`}
+                className="font-bold text-[#2D4A2A] text-lg min-w-[2rem] text-center"
+                style={{ animation: 'qty-bounce 0.3s ease-out' }}
+              >
+                {quantity}
+              </span>
+              <button
+                onClick={handleAdd}
+                className="w-10 h-10 flex items-center justify-center bg-[#2D4A2A] rounded-lg hover:bg-[#3D6338] transition-colors text-white"
+                aria-label="Augmenter la quantité"
+              >
+                <Plus className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={handleAdd}
+              className="w-full bg-[#2D4A2A] text-white py-3 rounded-lg hover:bg-[#3D6338] transition-colors font-medium"
+            >
+              Ajouter au panier
+            </button>
+          )
         ) : (
           <button
             onClick={onDevisClick}
