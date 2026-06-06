@@ -1,11 +1,28 @@
+# Site web Maison Lidam
 
-  # Site web Maison Lidam
+E-boutique for Moroccan homemade pastries and catering services — built with Next.js, React, Tailwind CSS v4, and shadcn/ui.
 
-  This is a code bundle for Site web Maison Lidam. The original project is available at https://www.figma.com/design/oAT9LeWK2idn2xFfO17L3i/Site-web-Maison-Lidam.
+## Getting started
 
-  ## Running the code
+```bash
+npm install
+npm run dev
+```
 
-  Run `npm i` to install the dependencies.
+Open [http://localhost:3000](http://localhost:3000).
 
-  Run `npm run dev` to start the development server.
-  
+## Scripts
+
+| Command           | Description                     |
+| ----------------- | ------------------------------- |
+| `npm run dev`     | Start development server        |
+| `npm run build`   | Build for production            |
+| `npm start`       | Start production server         |
+
+## Tech stack
+
+- **Framework:** Next.js (App Router)
+- **UI:** React, shadcn/ui, Radix UI, MUI
+- **Styling:** Tailwind CSS v4
+- **Icons:** Lucide React
+- **Animations:** Motion
