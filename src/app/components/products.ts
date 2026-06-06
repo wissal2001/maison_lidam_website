@@ -185,46 +185,4 @@ export const products: Product[] = [
     category: 'plateaux',
     emoji: '🏡'
   },
-
-  // PLATS TRADITIONNELS
-  {
-    id: 'tajine-poulet',
-    name: 'Tajine de poulet aux olives',
-    description: 'Recette traditionnelle, cuisiné le jour J',
-    fullDescription: 'Tajine de poulet mijoté avec des olives et citrons confits, préparé le jour même selon la recette traditionnelle marocaine. Portions et quantités sur devis.',
-    price: null,
-    unit: 'sur devis',
-    category: 'plats',
-    emoji: '🍲'
-  },
-  {
-    id: 'couscous',
-    name: 'Couscous maison',
-    description: 'Légumes de saison, viande mijotée',
-    fullDescription: 'Couscous préparé avec soin : légumes frais de saison, viande mijotée et semoule roulée à la main. Un plat complet et généreux.',
-    price: null,
-    unit: 'sur devis',
-    category: 'plats',
-    emoji: '🥘'
-  },
-  {
-    id: 'pastilla',
-    name: 'Pastilla au poulet',
-    description: 'Feuilleté marocain, sucré-salé, amandes',
-    fullDescription: 'Pastilla traditionnelle au poulet : feuilleté croustillant garni de poulet effiloché, amandes, œufs et épices, saupoudré de sucre glace et cannelle.',
-    price: null,
-    unit: 'sur devis',
-    category: 'plats',
-    emoji: '🥧'
-  },
-  {
-    id: 'harira',
-    name: 'Harira maison',
-    description: 'Soupe traditionnelle marocaine',
-    fullDescription: 'Soupe traditionnelle marocaine aux tomates, lentilles, pois chiches, viande et vermicelles. Réconfortante et parfumée aux épices.',
-    price: null,
-    unit: 'sur devis',
-    category: 'plats',
-    emoji: '🍜'
-  }
 ];

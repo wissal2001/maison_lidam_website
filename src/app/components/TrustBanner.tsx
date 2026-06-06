@@ -6,7 +6,7 @@ export function TrustBanner() {
     },
     {
       emoji: '🚗',
-      title: 'Livraison IDF selon disponibilité'
+      title: 'Livraison Possible'
     },
     {
       emoji: '💳',
@@ -14,7 +14,7 @@ export function TrustBanner() {
     },
     {
       emoji: '💬',
-      title: 'Réponse sous 24-48h'
+      title: 'Réponse Rapide'
     }
   ];
 

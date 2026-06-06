@@ -45,7 +45,7 @@ export function OrderForm({ isOpen, onClose, cartItems, postalCode, deliveryFee,
             Merci pour votre commande. Je vérifie ma disponibilité et vous contacte sous 24h pour confirmer.
           </p>
           <p className="text-sm text-[#4A2F1A]/60">
-            Vous recevrez les instructions pour l'acompte de 20€ via PayPal.
+            Vous recevrez les instructions pour l'acompte via PayPal ou Virement Bancaire.
           </p>
         </div>
       </div>
@@ -172,8 +172,8 @@ export function OrderForm({ isOpen, onClose, cartItems, postalCode, deliveryFee,
           {/* Payment Notice */}
           <div className="bg-[#FFF9E6] border-2 border-[#C8A84B] rounded-lg p-4">
             <p className="text-sm text-[#4A2F1A]">
-              <strong className="text-[#C8A84B]">💳 Acompte requis :</strong> Un acompte de 20 € via PayPal
-              est requis pour confirmer votre commande. Je vérifie ma disponibilité et vous contacte sous 24h.
+              <strong className="text-[#C8A84B]">💳 Acompte requis :</strong> Après vérification de votre commande, un acompte (via PayPal ou virement bancaire)
+              est requis pour confirmer votre commande.
             </p>
           </div>
 

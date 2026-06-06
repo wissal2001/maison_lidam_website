@@ -58,7 +58,7 @@ export function CustomQuoteForm({ onClose }: CustomQuoteFormProps) {
             Une idée sur mesure ? Parlons-en !
           </h2>
           <p className="text-lg text-[#FAF6EE]/80 max-w-2xl mx-auto">
-            "Salam ! Je cherche des plateaux de sablés et louz pour 20 personnes, vous proposez ça ?"
+            "Bonjour ! Je cherche des plateaux de sablés et louz pour 20 personnes, vous proposez ça ?"
             <br />
             <strong className="text-[#C8A84B]">→ Oui, tout est possible !</strong> Dites-moi ce dont vous avez besoin.
           </p>
@@ -184,7 +184,7 @@ export function CustomQuoteForm({ onClose }: CustomQuoteFormProps) {
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               rows={5}
-              placeholder="Ex: Salam ! Je cherche un plateau de sablés et louz pour 20 personnes, mariage le 15 juillet, livraison à Évry. Budget environ 40€. Des photos disponibles ?"
+              placeholder="Ex: Bonjour ! Je cherche un plateau de sablés et louz pour 20 personnes, mariage le 15 juillet, livraison à Évry. Budget environ 40€. Des photos disponibles ?"
               className="w-full px-4 py-2 border border-[#2D4A2A]/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8A84B]"
             />
           </div>

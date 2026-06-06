@@ -22,11 +22,11 @@ export function Footer() {
               </div>
               <div>
                 <div className="font-heading text-xl font-semibold">Maison Lidam</div>
-                <div className="font-heading italic text-sm text-[#C8A84B]">with love</div>
+                <div className="font-heading italic text-sm text-[#C8A84B]">Fait Maison</div>
               </div>
             </div>
             <p className="text-sm text-white/80">
-              Traiteur Marocain Maison · IDF · with love
+              Traiteur Marocain Maison · IDF · Fait Maison
             </p>
           </div>
 

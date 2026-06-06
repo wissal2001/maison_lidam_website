@@ -13,23 +13,19 @@ const faqItems: FAQItem[] = [
   },
   {
     question: 'Quels délais pour préparer ma commande ?',
-    answer: 'Tout est préparé frais le jour de votre événement ! Je recommande de commander au minimum 3-5 jours à l\'avance pour les petites commandes, et 1-2 semaines pour les plateaux importants ou événements. Pour les grandes occasions (mariages, etc.), contactez-moi le plus tôt possible.'
+    answer: 'Tout est préparé frais pour votre événement ! Je recommande de commander au minimum 3-5 jours à l\'avance pour les petites commandes, et 1-2 semaines pour les plateaux importants ou événements. Pour les grandes occasions (mariages, etc.), contactez-moi le plus tôt possible.'
   },
   {
     question: 'Comment confirmer et payer l\'acompte ?',
-    answer: 'Après validation de votre commande et vérification de ma disponibilité, je vous envoie les instructions pour régler un acompte de 20€ via PayPal. Cet acompte confirme votre réservation. Le solde est à régler à la livraison ou lors de la remise en main propre.'
+    answer: 'Après validation de votre commande et vérification de ma disponibilité, je vous envoie les instructions pour régler un acompte via PayPal ou virement bancaire. Cet acompte confirme votre réservation. Le solde restant est à régler à la livraison ou lors de la remise en main propre.'
   },
   {
     question: 'Livrez-vous partout en IDF ?',
-    answer: 'Oui, je livre dans toute l\'Île-de-France selon mes disponibilités ! Les frais varient selon votre zone (de 0€ à 10€). Vous pouvez calculer vos frais de livraison en entrant votre code postal dans la section Livraison. Pour les départements hors IDF, contactez-moi pour un devis.'
+    answer: 'Oui, je livre dans toute l\'Île-de-France selon mes disponibilités ! Les frais varient selon votre adresse de livraison. Vous pouvez calculer une estimation de vos frais de livraison en entrant votre code postal dans la section Livraison. Pour les départements hors IDF, contactez-moi pour un devis.'
   },
   {
     question: 'Proposez-vous des commandes sur mesure ?',
     answer: 'Absolument ! Je suis spécialisée dans les créations sur mesure. Que ce soit pour adapter les quantités, personnaliser un plateau, créer une box cadeau spéciale, ou préparer un menu complet pour votre événement, remplissez le formulaire de devis et décrivez-moi votre projet.'
-  },
-  {
-    question: 'Y a-t-il un minimum de commande ?',
-    answer: 'Il n\'y a pas de minimum strict, mais pour rentabiliser la livraison, je recommande une commande d\'au moins 15-20€. Pour les petites quantités, la remise en main propre est souvent plus pratique si vous êtes dans ma zone proche (Massy, Palaiseau).'
   },
   {
     question: 'Peut-on voir des photos avant de commander ?',

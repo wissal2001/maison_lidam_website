@@ -13,7 +13,7 @@ interface HeroSlide {
 const slides: HeroSlide[] = [
   {
     title: 'Bienvenue chez Maison Lidam',
-    subtitle: 'Pâtisserie marocaine maison · Île-de-France',
+    subtitle: 'Traiteur marocain maison · Île-de-France',
     bgColor: '#2D4A2A',
     textColor: '#FAF6EE',
     cta1: 'Découvrir la boutique',

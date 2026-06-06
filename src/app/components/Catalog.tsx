@@ -3,7 +3,7 @@ import { products, Product } from './products';
 import { ProductCard } from './ProductCard';
 import { ProductQuickView } from './ProductQuickView';
 
-type Category = 'all' | 'gateaux' | 'mini-sales' | 'plateaux' | 'plats';
+type Category = 'all' | 'gateaux' | 'mini-sales' | 'plateaux';
 
 interface CatalogProps {
   onAddToCart: (product: Product) => void;
@@ -19,7 +19,6 @@ export function Catalog({ onAddToCart, onDevisClick }: CatalogProps) {
     { id: 'gateaux' as Category, label: 'Gâteaux' },
     { id: 'mini-sales' as Category, label: 'Mini-salés' },
     { id: 'plateaux' as Category, label: 'Plateaux' },
-    { id: 'plats' as Category, label: 'Plats traditionnels' }
   ];
 
   const filteredProducts = selectedCategory === 'all'

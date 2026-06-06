@@ -31,7 +31,7 @@ export function Navigation({ cartItemCount, onCartClick, onDevisClick }: Navigat
             </div>
             <div>
               <div className="font-heading text-xl font-semibold text-[#2D4A2A]">Maison Lidam</div>
-              <div className="font-heading italic text-xs text-[#C8A84B]">with love</div>
+              <div className="font-heading italic text-xs text-[#C8A84B]">Fait Maison</div>
             </div>
           </div>
 
