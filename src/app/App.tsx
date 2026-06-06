@@ -140,6 +140,7 @@ export default function App() {
       <OrderForm
         isOpen={isOrderFormOpen}
         onClose={() => setIsOrderFormOpen(false)}
+        onEditOrder={() => { setIsOrderFormOpen(false); setIsCartOpen(true) }}
         cartItems={cartItems}
         postalCode={orderPostalCode}
         deliveryFee={deliveryFee}
