@@ -13,39 +13,10 @@ import { FAQ } from './components/FAQ';
 import { Footer } from './components/Footer';
 import { Product } from './components/products';
 
-function getDeliveryPrice(postalCode: string): number {
-  if (!postalCode) return 0;
-
-  const deliveryZones: Record<string, number> = {
-    '91600': 0,
-    '91120': 0,
-    '91370': 2,
-    '91': 5,
-    '94': 5,
-    '75': 7,
-    '92': 7,
-    '93': 8,
-    '78': 8,
-    '95': 10,
-    '77': 10
-  };
-
-  const code = postalCode.trim();
-
-  for (const [key, value] of Object.entries(deliveryZones)) {
-    if (code.startsWith(key)) {
-      return value;
-    }
-  }
-
-  return 15;
-}
-
 export default function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isOrderFormOpen, setIsOrderFormOpen] = useState(false);
-  const [orderPostalCode, setOrderPostalCode] = useState('');
 
   const handleAddToCart = (product: Product) => {
     setCartItems((prev) => {
@@ -73,8 +44,7 @@ export default function App() {
     setCartItems((prev) => prev.filter((item) => item.product.id !== productId));
   };
 
-  const handleCheckout = (postalCode: string) => {
-    setOrderPostalCode(postalCode);
+  const handleCheckout = () => {
     setIsCartOpen(false);
     setIsOrderFormOpen(true);
   };
@@ -94,12 +64,6 @@ export default function App() {
   };
 
   const cartItemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + (item.product.price || 0) * item.quantity,
-    0
-  );
-  const deliveryFee = getDeliveryPrice(orderPostalCode);
-  const total = subtotal + deliveryFee;
 
   return (
     <div className="min-h-screen bg-[#FAF6EE]">
@@ -144,11 +108,10 @@ export default function App() {
       <OrderForm
         isOpen={isOrderFormOpen}
         onClose={() => setIsOrderFormOpen(false)}
-        onEditOrder={() => { setIsOrderFormOpen(false); setIsCartOpen(true) }}
+        onEditBasket={() => { setIsOrderFormOpen(false); handleScrollToBoutique() }}
         cartItems={cartItems}
-        postalCode={orderPostalCode}
-        deliveryFee={deliveryFee}
-        total={total}
+        onUpdateQuantity={handleUpdateQuantity}
+        onRemoveItem={handleRemoveItem}
       />
     </div>
   );

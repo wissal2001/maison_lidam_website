@@ -5,24 +5,65 @@ import { CartItem } from './CartDrawer';
 interface OrderFormProps {
   isOpen: boolean;
   onClose: () => void;
-  onEditOrder: () => void;
+  onEditBasket: () => void;
   cartItems: CartItem[];
-  postalCode: string;
-  deliveryFee: number;
-  total: number;
+  onUpdateQuantity: (productId: string, quantity: number) => void;
+  onRemoveItem: (productId: string) => void;
 }
 
-export function OrderForm({ isOpen, onClose, onEditOrder, cartItems, postalCode, deliveryFee, total }: OrderFormProps) {
+function getDeliveryPrice(postalCode: string): number {
+  if (!postalCode) return 0;
+
+  const deliveryZones: Record<string, number> = {
+    '91600': 0,
+    '91120': 0,
+    '91370': 2,
+    '91': 5,
+    '94': 5,
+    '75': 7,
+    '92': 7,
+    '93': 8,
+    '78': 8,
+    '95': 10,
+    '77': 10
+  };
+
+  const code = postalCode.trim();
+
+  for (const [key, value] of Object.entries(deliveryZones)) {
+    if (code.startsWith(key)) {
+      return value;
+    }
+  }
+
+  return 15;
+}
+
+export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQuantity, onRemoveItem }: OrderFormProps) {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     contact: '',
     date: '',
-    message: ''
+    deliveryMode: 'retrait' as 'retrait' | 'livraison',
+    deliveryAddress: '',
+    deliveryPostalCode: '',
+    message: '',
+    paymentMethod: 'paypal',
+    paymentOther: ''
   });
 
   const [submitted, setSubmitted] = useState(false);
   const [instagramCopied, setInstagramCopied] = useState(false);
+
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + (item.product.price || 0) * item.quantity,
+    0
+  );
+  const deliveryFee = formData.deliveryMode === 'livraison'
+    ? getDeliveryPrice(formData.deliveryPostalCode)
+    : 0;
+  const total = subtotal + deliveryFee;
 
   const buildOrderMessage = () => {
     const items = cartItems
@@ -32,22 +73,42 @@ export function OrderForm({ isOpen, onClose, onEditOrder, cartItems, postalCode,
       )
       .join('\n');
 
-    return [
+    const getPaymentLabel = () => {
+      if (formData.paymentMethod === 'paypal') return 'Paypal';
+      if (formData.paymentMethod === 'virement') return 'Virement bancaire';
+      return 'Autre (' + (formData.paymentOther || 'à préciser') + ')';
+    };
+
+    const deliveryInfo = formData.deliveryMode === 'retrait'
+      ? 'Retrait sur place - Massy-Atlantis 91300 (adresse exacte transmise après confirmation)'
+      : `Livraison : ${formData.deliveryAddress} (${formData.deliveryPostalCode})`;
+
+    const lines = [
       '🛍️ *Nouvelle commande Maison Lidam*',
       '',
       `👤 *Client :* ${formData.firstName} ${formData.lastName}`,
-      `📞 *Contact :* ${formData.contact}`,
+      `📞 *Téléphone :* ${formData.contact}`,
       `📅 *Date souhaitée :* ${formData.date}`,
-      `📍 *Code postal :* ${postalCode}`,
+      `📍 ${deliveryInfo}`,
+      `💳 *Acompte :* ${getPaymentLabel()}`,
       '',
       '📦 *Commande :*',
       items,
       '',
-      `💰 *Sous-total :* ${(total - deliveryFee).toFixed(2)}€`,
-      `🚚 *Livraison :* ${deliveryFee.toFixed(2)}€`,
-      `💵 *Total :* ${total.toFixed(2)}€`,
-      formData.message ? `\n💬 *Message :* ${formData.message}` : '',
-    ].join('\n');
+      `💰 *Sous-total :* ${subtotal.toFixed(2)}€`,
+    ];
+
+    if (formData.deliveryMode === 'livraison') {
+      lines.push(`🚚 *Livraison :* ${deliveryFee.toFixed(2)}€`);
+    }
+
+    lines.push(`💵 *Total :* ${total.toFixed(2)}€`);
+
+    if (formData.message) {
+      lines.push('', `💬 *Message :* ${formData.message}`);
+    }
+
+    return lines.join('\n');
   };
 
   const handleWhatsApp = () => {
@@ -70,8 +131,6 @@ export function OrderForm({ isOpen, onClose, onEditOrder, cartItems, postalCode,
     setSubmitted(true);
   };
 
-  const subtotal = total - deliveryFee;
-
   if (!isOpen) return null;
 
   if (submitted) {
@@ -92,7 +151,20 @@ export function OrderForm({ isOpen, onClose, onEditOrder, cartItems, postalCode,
           {/* Recap */}
           <div className="p-6">
             <div className="bg-[#FAF6EE] rounded-xl p-5 space-y-3">
-              {/* Client info */}
+              {/* Informations */}
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-[#2D4A2A] text-sm">Informations</span>
+                <button
+                  type="button"
+                  onClick={() => setSubmitted(false)}
+                  className="text-sm text-[#4A2F1A]/50 hover:text-[#2D4A2A] transition-colors flex items-center gap-1"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                  Modifier
+                </button>
+              </div>
               <div className="space-y-1.5 text-sm">
                 <div className="flex items-center gap-2">
                   <span>👤</span>
@@ -108,13 +180,42 @@ export function OrderForm({ isOpen, onClose, onEditOrder, cartItems, postalCode,
                 </div>
                 <div className="flex items-center gap-2">
                   <span>📍</span>
-                  <span className="text-[#4A2F1A]">{postalCode}</span>
+                  <span className="text-[#4A2F1A]">
+                    {formData.deliveryMode === 'retrait'
+                      ? 'Retrait sur place - Massy-Atlantis 91300 (adresse exacte transmise après confirmation)'
+                      : `${formData.deliveryAddress} (${formData.deliveryPostalCode})`}
+                  </span>
                 </div>
+                <div className="flex items-center gap-2">
+                  <span>💳</span>
+                  <span className="text-[#4A2F1A]">
+                    Acompte : {formData.paymentMethod === 'paypal' ? 'Paypal' : formData.paymentMethod === 'virement' ? 'Virement bancaire' : `Autre (${formData.paymentOther || 'à préciser'})`}
+                  </span>
+                </div>
+                {formData.message && (
+                  <div className="pt-2 border-t border-dashed border-[#2D4A2A]/20">
+                    <span className="text-[#4A2F1A]/50 text-xs">Message :</span>
+                    <p className="text-[#4A2F1A] text-sm mt-0.5">{formData.message}</p>
+                  </div>
+                )}
               </div>
 
-              <div className="border-t border-[#2D4A2A]/10 pt-3" />
+              <div className="border-t border-[#2D4A2A]/20 pt-3" />
 
-              {/* Cart items */}
+              {/* Panier */}
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-[#2D4A2A] text-sm">Panier</span>
+                <button
+                  type="button"
+                  onClick={onEditBasket}
+                  className="text-sm text-[#4A2F1A]/50 hover:text-[#2D4A2A] transition-colors flex items-center gap-1"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                  Modifier
+                </button>
+              </div>
               <div className="space-y-2">
                 {cartItems.map((item) => (
                   <div key={item.product.id} className="flex justify-between text-sm">
@@ -126,42 +227,25 @@ export function OrderForm({ isOpen, onClose, onEditOrder, cartItems, postalCode,
                 ))}
               </div>
 
-              <div className="border-t border-[#2D4A2A]/10 pt-3 space-y-1 text-sm">
-                <div className="flex justify-between text-[#4A2F1A]/70">
-                  <span>Sous-total</span>
-                  <span>{subtotal.toFixed(2)} €</span>
-                </div>
-                <div className="flex justify-between text-[#4A2F1A]/70">
-                  <span>Livraison</span>
-                  <span>{deliveryFee.toFixed(2)} €</span>
-                </div>
-                <div className="flex justify-between font-bold text-[#2D4A2A] text-base pt-1">
+              <div className="space-y-1 text-sm">
+                {formData.deliveryMode === 'livraison' && (
+                  <>
+                    <div className="border-t border-dashed border-[#2D4A2A]/20 pt-3 flex justify-between text-[#4A2F1A]/70">
+                      <span>Sous Total</span>
+                      <span>{subtotal.toFixed(2)} €</span>
+                    </div>
+                    <div className="flex justify-between text-[#4A2F1A]/70">
+                      <span>Livraison (estimation)</span>
+                      <span>{deliveryFee.toFixed(2)} €</span>
+                    </div>
+                  </>
+                )}
+                <div className="border-t border-dashed border-[#2D4A2A]/20 pt-3 flex justify-between font-bold text-[#2D4A2A] text-base">
                   <span>Total</span>
                   <span className="text-[#C8A84B]">{total.toFixed(2)} €</span>
                 </div>
               </div>
 
-              {formData.message && (
-                <>
-                  <div className="border-t border-[#2D4A2A]/10 pt-3" />
-                  <div className="text-sm">
-                    <span className="text-[#4A2F1A]/50 text-xs">Message :</span>
-                    <p className="text-[#4A2F1A] mt-0.5">{formData.message}</p>
-                  </div>
-                </>
-              )}
-
-              <div className="border-t border-[#2D4A2A]/10 pt-3">
-                <button
-                  onClick={onEditOrder}
-                  className="text-sm text-[#4A2F1A]/50 hover:text-[#2D4A2A] transition-colors flex items-center gap-1"
-                >
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                  </svg>
-                  Modifier la commande
-                </button>
-              </div>
             </div>
 
             <div className="border-t border-[#2D4A2A]/10 my-5" />
@@ -245,25 +329,6 @@ export function OrderForm({ isOpen, onClose, onEditOrder, cartItems, postalCode,
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {/* Cart Summary */}
-          <div className="bg-[#FAF6EE] rounded-lg p-4">
-            <h3 className="font-semibold text-[#2D4A2A] mb-3">Récapitulatif</h3>
-            <div className="space-y-2 text-sm">
-              {cartItems.map((item) => (
-                <div key={item.product.id} className="flex justify-between">
-                  <span>{item.product.name} x{item.quantity}</span>
-                  <span className="font-semibold text-[#C8A84B]">
-                    {((item.product.price || 0) * item.quantity).toFixed(2)} €
-                  </span>
-                </div>
-              ))}
-              <div className="pt-2 border-t border-[#2D4A2A]/10 flex justify-between font-semibold">
-                <span>Total (avec livraison)</span>
-                <span className="text-[#C8A84B]">{total.toFixed(2)} €</span>
-              </div>
-            </div>
-          </div>
-
           {/* Form Fields */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -294,14 +359,14 @@ export function OrderForm({ isOpen, onClose, onEditOrder, cartItems, postalCode,
 
           <div>
             <label className="block text-sm font-medium text-[#2D4A2A] mb-2">
-              Instagram ou téléphone *
+              Téléphone *
             </label>
             <input
-              type="text"
+              type="tel"
               required
               value={formData.contact}
               onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
-              placeholder="@votre_instagram ou 06 12 34 56 78"
+              placeholder="06 12 34 56 78"
               className="w-full px-4 py-2 border border-[#2D4A2A]/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8A84B]"
             />
           </div>
@@ -319,21 +384,138 @@ export function OrderForm({ isOpen, onClose, onEditOrder, cartItems, postalCode,
             />
           </div>
 
+          {/* Delivery Mode */}
           <div>
             <label className="block text-sm font-medium text-[#2D4A2A] mb-2">
-              Code postal (livraison)
+              📍 Mode de réception *
             </label>
-            <input
-              type="text"
-              value={postalCode}
-              disabled
-              className="w-full px-4 py-2 border border-[#2D4A2A]/20 rounded-lg bg-gray-100"
-            />
+            <div className="space-y-2">
+              <label
+                className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
+                  formData.deliveryMode === 'retrait'
+                    ? 'border-[#2D4A2A] bg-white'
+                    : 'border-[#2D4A2A]/10 bg-white'
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="deliveryMode"
+                  value="retrait"
+                  checked={formData.deliveryMode === 'retrait'}
+                  onChange={(e) => setFormData({ ...formData, deliveryMode: e.target.value as 'retrait' | 'livraison' })}
+                  className="accent-[#2D4A2A]"
+                />
+                <div>
+                  <span className="text-sm font-medium text-[#2D4A2A]">Retrait Sur Place</span>
+                  <p className="text-xs text-[#4A2F1A]/60"> Massy-Atlantis 91300. Adresse exacte transmise après confirmation.</p>
+                </div>
+              </label>
+
+              <label
+                className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
+                  formData.deliveryMode === 'livraison'
+                    ? 'border-[#2D4A2A] bg-white'
+                    : 'border-[#2D4A2A]/10 bg-white'
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="deliveryMode"
+                  value="livraison"
+                  checked={formData.deliveryMode === 'livraison'}
+                  onChange={(e) => setFormData({ ...formData, deliveryMode: e.target.value as 'retrait' | 'livraison' })}
+                  className="accent-[#2D4A2A]"
+                />
+                <div>
+                  <span className="text-sm font-medium text-[#2D4A2A]">Livraison</span>
+                  <p className="text-xs text-[#4A2F1A]/60">Frais estimés selon le code postal</p>
+                </div>
+              </label>
+            </div>
+
+            {formData.deliveryMode === 'livraison' && (
+              <div className="space-y-3 pt-3">
+                <div>
+                  <label className="block text-sm font-medium text-[#2D4A2A] mb-2">
+                    Adresse complète
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.deliveryAddress}
+                    onChange={(e) => setFormData({ ...formData, deliveryAddress: e.target.value })}
+                    placeholder="Numéro, rue, ville..."
+                    className="w-full px-4 py-2 border border-[#2D4A2A]/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8A84B]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-[#2D4A2A] mb-2">
+                    Code postal *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.deliveryPostalCode}
+                    onChange={(e) => setFormData({ ...formData, deliveryPostalCode: e.target.value })}
+                    placeholder="Ex: 91120"
+                    className="w-full px-4 py-2 border border-[#2D4A2A]/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8A84B]"
+                  />
+                  {formData.deliveryPostalCode && (
+                    <p className="text-xs text-[#C8A84B] mt-1">
+                      Frais de livraison estimés : {deliveryFee.toFixed(2)} €
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Acompte */}
+          <div>
+            <label className="block text-sm font-medium text-[#2D4A2A] mb-2">
+              Acompte
+            </label>
+            <div className="flex gap-2">
+              {[
+                { value: 'paypal', label: 'Paypal', desc: '(recommandé)' },
+                { value: 'virement', label: 'Virement', desc: '' },
+                { value: 'autre', label: 'Autre', desc: '(à préciser)' },
+              ].map((option) => (
+                <label
+                  key={option.value}
+                  className={`flex-1 flex items-center justify-center gap-1.5 p-2 rounded-lg border cursor-pointer transition-colors text-sm ${
+                    formData.paymentMethod === option.value
+                      ? 'border-[#2D4A2A] bg-[#2D4A2A]/5 text-[#2D4A2A]'
+                      : 'border-[#2D4A2A]/10 bg-white text-[#4A2F1A]'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value={option.value}
+                    checked={formData.paymentMethod === option.value}
+                    onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
+                    className="sr-only"
+                  />
+                  <span>
+                    {option.label} <span className="text-[#4A2F1A]/50">{option.desc}</span>
+                  </span>
+                </label>
+              ))}
+            </div>
+            {formData.paymentMethod === 'autre' && (
+              <input
+                type="text"
+                value={formData.paymentOther}
+                onChange={(e) => setFormData({ ...formData, paymentOther: e.target.value })}
+                placeholder="Précisez le moyen de paiement..."
+                className="w-full px-4 py-2 border border-[#2D4A2A]/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8A84B] text-sm mt-2"
+              />
+            )}
           </div>
 
           <div>
             <label className="block text-sm font-medium text-[#2D4A2A] mb-2">
-              Message (allergies, précisions, heure de livraison...)
+              Message (précisions, heure de livraison, allergies, demandes spéciales...)
             </label>
             <textarea
               value={formData.message}
@@ -342,14 +524,6 @@ export function OrderForm({ isOpen, onClose, onEditOrder, cartItems, postalCode,
               placeholder="Ex: Allergie aux fruits à coque, livraison souhaitée vers 14h..."
               className="w-full px-4 py-2 border border-[#2D4A2A]/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8A84B]"
             />
-          </div>
-
-          {/* Payment Notice */}
-          <div className="bg-[#FFF9E6] border-2 border-[#C8A84B] rounded-lg p-4">
-            <p className="text-sm text-[#4A2F1A]">
-              <strong className="text-[#C8A84B]">💳 Acompte requis :</strong> Après vérification de votre commande, un acompte (via PayPal ou virement bancaire)
-              est requis pour confirmer votre commande.
-            </p>
           </div>
 
           {/* Submit Button */}

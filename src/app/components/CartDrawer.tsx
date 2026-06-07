@@ -13,50 +13,17 @@ interface CartDrawerProps {
   items: CartItem[];
   onUpdateQuantity: (productId: string, quantity: number) => void;
   onRemoveItem: (productId: string) => void;
-  onCheckout: (postalCode: string) => void;
-}
-
-const deliveryZones: Record<string, { name: string; price: number }> = {
-  '91600': { name: 'Zone 1', price: 0 },
-  '91120': { name: 'Zone 1', price: 0 },
-  '91370': { name: 'Zone 1', price: 2 },
-  '91': { name: 'Zone 2', price: 5 },
-  '94': { name: 'Zone 2', price: 5 },
-  '75': { name: 'Zone 3', price: 7 },
-  '92': { name: 'Zone 3', price: 7 },
-  '93': { name: 'Zone 4', price: 8 },
-  '78': { name: 'Zone 4', price: 8 },
-  '95': { name: 'Zone 5', price: 10 },
-  '77': { name: 'Zone 5', price: 10 }
-};
-
-function getDeliveryPrice(postalCode: string): number {
-  if (!postalCode) return 0;
-
-  const code = postalCode.trim();
-
-  for (const [key, value] of Object.entries(deliveryZones)) {
-    if (code.startsWith(key)) {
-      return value.price;
-    }
-  }
-
-  return 15;
+  onCheckout: () => void;
 }
 
 export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemoveItem, onCheckout }: CartDrawerProps) {
-  const [postalCode, setPostalCode] = useState('');
-
   const subtotal = items.reduce((sum, item) => {
     return sum + (item.product.price || 0) * item.quantity;
   }, 0);
 
-  const deliveryFee = getDeliveryPrice(postalCode);
-  const total = subtotal + deliveryFee;
-
   const handleCheckout = () => {
     if (items.length === 0) return;
-    onCheckout(postalCode);
+    onCheckout();
   };
 
   if (!isOpen) return null;
@@ -145,35 +112,11 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemoveI
         {/* Footer */}
         {items.length > 0 && (
           <div className="border-t border-[#2D4A2A]/10 p-6 space-y-4 bg-white">
-            {/* Postal Code */}
-            <div>
-              <label className="block text-sm font-medium text-[#2D4A2A] mb-2">
-                Code postal pour la livraison
-              </label>
-              <input
-                type="text"
-                value={postalCode}
-                onChange={(e) => setPostalCode(e.target.value)}
-                placeholder="Ex: 91120"
-                className="w-full px-4 py-2 border border-[#2D4A2A]/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8A84B]"
-              />
-            </div>
-
             {/* Totals */}
             <div className="space-y-2">
-              <div className="flex justify-between text-[#4A2F1A]">
-                <span>Sous-total</span>
-                <span>{subtotal.toFixed(2)} €</span>
-              </div>
-              {postalCode && (
-                <div className="flex justify-between text-[#4A2F1A]">
-                  <span>Livraison</span>
-                  <span>{deliveryFee.toFixed(2)} €</span>
-                </div>
-              )}
-              <div className="flex justify-between text-lg font-bold text-[#2D4A2A] pt-2 border-t border-[#2D4A2A]/10">
+              <div className="flex justify-between text-lg font-bold text-[#2D4A2A]">
                 <span>Total</span>
-                <span className="text-[#C8A84B]">{total.toFixed(2)} €</span>
+                <span className="text-[#C8A84B]">{subtotal.toFixed(2)} €</span>
               </div>
             </div>
 
