@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { MapPin, TruckIcon } from 'lucide-react';
 
 const deliveryZones = [
-  { zone: 'Zone 1', areas: 'Massy, Palaiseau, Verrières-le-Buisson (91 proche)', price: '0-2 €', codes: ['91600', '91120', '91370'] },
-  { zone: 'Zone 2', areas: 'Essonne (91), Val-de-Marne (94)', price: '5 €', codes: ['91', '94'] },
+  { zone: 'Zone 1', areas: 'Massy - Palaiseau (91 proche)', price: '0-2 €', codes: ['91120', '91300'] },
+  { zone: 'Zone 2', areas: 'Essonne (91), Val-de-Marne (94)', price: '5-7 €', codes: ['91', '94'] },
   { zone: 'Zone 3', areas: 'Paris (75), Hauts-de-Seine (92)', price: '7 €', codes: ['75', '92'] },
   { zone: 'Zone 4', areas: 'Seine-Saint-Denis (93), Yvelines (78)', price: '8 €', codes: ['93', '78'] },
   { zone: 'Zone 5', areas: 'Val-d\'Oise (95), Seine-et-Marne (77)', price: '10 €', codes: ['95', '77'] },
   { zone: 'Hors IDF', areas: 'Autres départements', price: 'Sur devis', codes: [] }
-];
+]; //TODO: update with real zones and prices
 
 function getDeliveryInfo(postalCode: string) {
   if (!postalCode) return null;
@@ -36,10 +36,11 @@ export function DeliverySection() {
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-[#2D4A2A] mb-4">
-            Livraison en Île-de-France
+            Livraison et Retrait
           </h2>
           <p className="text-lg text-[#4A2F1A]/80">
-            Selon mes disponibilités · Remise en main propre possible
+            Remise en main propre sans frais à Massy-Atlantis (91300) ou livraison à domicile. 
+            Estimation de frais de livraison ci-dessous !
           </p>
         </div>
 

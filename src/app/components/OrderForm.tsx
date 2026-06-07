@@ -45,16 +45,17 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
     lastName: '',
     contact: '',
     date: '',
-    deliveryMode: 'retrait' as 'retrait' | 'livraison',
+    deliveryMode: '' as '' | 'retrait' | 'livraison',
     deliveryAddress: '',
     deliveryPostalCode: '',
     message: '',
-    paymentMethod: 'paypal',
+    paymentMethod: '',
     paymentOther: ''
   });
 
   const [submitted, setSubmitted] = useState(false);
   const [instagramCopied, setInstagramCopied] = useState(false);
+  const [validationError, setValidationError] = useState('');
 
   const subtotal = cartItems.reduce(
     (sum, item) => sum + (item.product.price || 0) * item.quantity,
@@ -81,31 +82,33 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
 
     const deliveryInfo = formData.deliveryMode === 'retrait'
       ? 'Retrait sur place - Massy-Atlantis 91300 (adresse exacte transmise après confirmation)'
-      : `Livraison : ${formData.deliveryAddress} (${formData.deliveryPostalCode})`;
+      : formData.deliveryMode === 'livraison'
+        ? `Livraison : ${formData.deliveryAddress} (${formData.deliveryPostalCode})`
+        : 'Non specifie';
 
     const lines = [
-      '🛍️ *Nouvelle commande Maison Lidam*',
+      '*Nouvelle commande Maison Lidam*',
       '',
-      `👤 *Client :* ${formData.firstName} ${formData.lastName}`,
-      `📞 *Téléphone :* ${formData.contact}`,
-      `📅 *Date souhaitée :* ${formData.date}`,
-      `📍 ${deliveryInfo}`,
-      `💳 *Acompte :* ${getPaymentLabel()}`,
+      `*Client :* ${formData.firstName} ${formData.lastName}`,
+      `*Telephone :* ${formData.contact}`,
+      `*Date souhaitee :* ${formData.date}`,
+      `${deliveryInfo}`,
+      `*Acompte :* ${getPaymentLabel()}`,
       '',
-      '📦 *Commande :*',
+      '*Commande :*',
       items,
       '',
-      `💰 *Sous-total :* ${subtotal.toFixed(2)}€`,
+      `*Sous-total :* ${subtotal.toFixed(2)}€`,
     ];
 
     if (formData.deliveryMode === 'livraison') {
-      lines.push(`🚚 *Livraison :* ${deliveryFee.toFixed(2)}€`);
+      lines.push(`*Livraison :* ${deliveryFee.toFixed(2)}€`);
     }
 
-    lines.push(`💵 *Total :* ${total.toFixed(2)}€`);
+    lines.push(`*Total :* ${total.toFixed(2)}€`);
 
     if (formData.message) {
-      lines.push('', `💬 *Message :* ${formData.message}`);
+      lines.push('', `*Message :* ${formData.message}`);
     }
 
     return lines.join('\n');
@@ -128,6 +131,15 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setValidationError('');
+    if (!formData.deliveryMode) {
+      setValidationError('Veuillez sélectionner un mode de réception.');
+      return;
+    }
+    if (!formData.paymentMethod) {
+      setValidationError('Veuillez sélectionner un moyen de paiement pour l\'acompte.');
+      return;
+    }
     setSubmitted(true);
   };
 
@@ -183,13 +195,15 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
                   <span className="text-[#4A2F1A]">
                     {formData.deliveryMode === 'retrait'
                       ? 'Retrait sur place - Massy-Atlantis 91300 (adresse exacte transmise après confirmation)'
-                      : `${formData.deliveryAddress} (${formData.deliveryPostalCode})`}
+                      : formData.deliveryMode === 'livraison'
+                        ? `${formData.deliveryAddress} (${formData.deliveryPostalCode})`
+                        : 'Non spécifié'}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span>💳</span>
                   <span className="text-[#4A2F1A]">
-                    Acompte : {formData.paymentMethod === 'paypal' ? 'Paypal' : formData.paymentMethod === 'virement' ? 'Virement bancaire' : `Autre (${formData.paymentOther || 'à préciser'})`}
+                    Acompte : {formData.paymentMethod === 'paypal' ? 'Paypal' : formData.paymentMethod === 'virement' ? 'Virement bancaire' : formData.paymentMethod === 'autre' ? `Autre (${formData.paymentOther || 'à préciser'})` : 'Non spécifié'}
                   </span>
                 </div>
                 {formData.message && (
@@ -345,11 +359,10 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
             </div>
             <div>
               <label className="block text-sm font-medium text-[#2D4A2A] mb-2">
-                Nom *
+                Nom
               </label>
               <input
                 type="text"
-                required
                 value={formData.lastName}
                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                 className="w-full px-4 py-2 border border-[#2D4A2A]/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8A84B]"
@@ -359,11 +372,10 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
 
           <div>
             <label className="block text-sm font-medium text-[#2D4A2A] mb-2">
-              Téléphone *
+              Téléphone
             </label>
             <input
               type="tel"
-              required
               value={formData.contact}
               onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
               placeholder="06 12 34 56 78"
@@ -402,7 +414,7 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
                   name="deliveryMode"
                   value="retrait"
                   checked={formData.deliveryMode === 'retrait'}
-                  onChange={(e) => setFormData({ ...formData, deliveryMode: e.target.value as 'retrait' | 'livraison' })}
+                  onChange={(e) => setFormData({ ...formData, deliveryMode: e.target.value as '' | 'retrait' | 'livraison' })}
                   className="accent-[#2D4A2A]"
                 />
                 <div>
@@ -423,7 +435,7 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
                   name="deliveryMode"
                   value="livraison"
                   checked={formData.deliveryMode === 'livraison'}
-                  onChange={(e) => setFormData({ ...formData, deliveryMode: e.target.value as 'retrait' | 'livraison' })}
+                  onChange={(e) => setFormData({ ...formData, deliveryMode: e.target.value as '' | 'retrait' | 'livraison' })}
                   className="accent-[#2D4A2A]"
                 />
                 <div>
@@ -472,7 +484,7 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
           {/* Acompte */}
           <div>
             <label className="block text-sm font-medium text-[#2D4A2A] mb-2">
-              Acompte
+              Acompte *
             </label>
             <div className="flex gap-2">
               {[
@@ -527,6 +539,9 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
           </div>
 
           {/* Submit Button */}
+          {validationError && (
+            <p className="text-red-500 text-sm text-center">{validationError}</p>
+          )}
           <button
             type="submit"
             className="w-full bg-[#2D4A2A] text-white py-4 rounded-lg hover:bg-[#3D6338] transition-colors font-medium text-lg"

@@ -1,4 +1,4 @@
-import { ShoppingCart, Menu, X } from 'lucide-react';
+import { ShoppingCart, Menu, X, MessageCircle, Camera } from 'lucide-react';
 import { useState } from 'react';
 
 interface NavigationProps {
@@ -9,6 +9,7 @@ interface NavigationProps {
 
 export function Navigation({ cartItemCount, onCartClick, onDevisClick }: NavigationProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showContactMenu, setShowContactMenu] = useState(false);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -16,6 +17,18 @@ export function Navigation({ cartItemCount, onCartClick, onDevisClick }: Navigat
       element.scrollIntoView({ behavior: 'smooth' });
       setIsMobileMenuOpen(false);
     }
+  };
+
+  const handleWhatsApp = () => {
+    window.open('https://wa.me/33764258783', '_blank');
+    setShowContactMenu(false);
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleInstagram = () => {
+    window.open('https://www.instagram.com/maison.lidam/', '_blank');
+    setShowContactMenu(false);
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -46,9 +59,41 @@ export function Navigation({ cartItemCount, onCartClick, onDevisClick }: Navigat
             <button onClick={() => scrollToSection('livraison')} className="text-[#2D4A2A] hover:text-[#C8A84B] transition-colors">
               Livraison
             </button>
-            <button onClick={() => scrollToSection('contact')} className="text-[#2D4A2A] hover:text-[#C8A84B] transition-colors">
-              Contact
+            <button onClick={() => scrollToSection('faq')} className="text-[#2D4A2A] hover:text-[#C8A84B] transition-colors">
+              FAQ
             </button>
+            <div className="relative">
+              <button
+                onClick={() => setShowContactMenu(!showContactMenu)}
+                className="text-[#2D4A2A] hover:text-[#C8A84B] transition-colors flex items-center gap-1"
+              >
+                Contact
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {showContactMenu && (
+                <>
+                  <div className="fixed inset-0 z-10" onClick={() => setShowContactMenu(false)} />
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-[#2D4A2A]/10 py-2 z-20">
+                    <button
+                      onClick={handleWhatsApp}
+                      className="w-full px-4 py-3 text-sm text-[#2D4A2A] hover:bg-[#FAF6EE] transition-colors flex items-center gap-3"
+                    >
+                      <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                      WhatsApp
+                    </button>
+                    <button
+                      onClick={handleInstagram}
+                      className="w-full px-4 py-3 text-sm text-[#2D4A2A] hover:bg-[#FAF6EE] transition-colors flex items-center gap-3"
+                    >
+                      <Camera className="w-4 h-4 text-[#E4405F]" />
+                      Instagram
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
 
           {/* Actions */}
@@ -93,9 +138,26 @@ export function Navigation({ cartItemCount, onCartClick, onDevisClick }: Navigat
             <button onClick={() => scrollToSection('livraison')} className="block w-full text-left py-2 text-[#2D4A2A] hover:text-[#C8A84B]">
               Livraison
             </button>
-            <button onClick={() => scrollToSection('contact')} className="block w-full text-left py-2 text-[#2D4A2A] hover:text-[#C8A84B]">
-              Contact
+            <button onClick={() => scrollToSection('faq')} className="block w-full text-left py-2 text-[#2D4A2A] hover:text-[#C8A84B]">
+              FAQ
             </button>
+            <div className="space-y-1">
+              <div className="text-sm text-[#2D4A2A]/50 font-medium px-2 pt-2 pb-1">Contact</div>
+              <button
+                onClick={handleWhatsApp}
+                className="block w-full text-left py-2 px-2 text-[#2D4A2A] hover:text-[#C8A84B] transition-colors flex items-center gap-3"
+              >
+                <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                WhatsApp
+              </button>
+              <button
+                onClick={handleInstagram}
+                className="block w-full text-left py-2 px-2 text-[#2D4A2A] hover:text-[#C8A84B] transition-colors flex items-center gap-3"
+              >
+                <Camera className="w-4 h-4 text-[#E4405F]" />
+                Instagram
+              </button>
+            </div>
             <button
               onClick={onDevisClick}
               className="block w-full bg-[#C8A84B] text-[#2D4A2A] px-6 py-2 rounded-lg hover:bg-[#b89940] transition-colors"

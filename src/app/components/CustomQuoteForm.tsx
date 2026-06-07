@@ -20,6 +20,9 @@ export function CustomQuoteForm({ onClose }: CustomQuoteFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const message = buildQuoteMessage();
+    const url = `https://wa.me/33764258783?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
@@ -34,6 +37,41 @@ export function CustomQuoteForm({ onClose }: CustomQuoteFormProps) {
         description: ''
       });
     }, 3000);
+  };
+
+  const buildQuoteMessage = () => {
+    const typeLabels: Record<string, string> = {
+      'plateau-gateaux': 'Plateau de gâteaux marocains',
+      'mini-sales': 'Mini-salés / Buffet',
+      'plat-traditionnel': 'Plat traditionnel',
+      'plateau-mixte': 'Plateau mixte sucré-salé',
+      'box-cadeau': 'Box cadeau',
+      'autre': 'Autre / Sur mesure'
+    };
+    const eventLabels: Record<string, string> = {
+      'anniversaire': 'Anniversaire',
+      'mariage': 'Mariage',
+      'naissance': 'Naissance',
+      'aqiqa': 'Aqiqa',
+      'ceremonie': 'Cérémonie religieuse',
+      'famille': 'Réunion familiale',
+      'professionnel': 'Événement professionnel',
+      'autre': 'Autre'
+    };
+    const lines = [
+      '*Nouvelle demande de devis*',
+      '',
+      `*Client :* ${formData.firstName} ${formData.lastName}`,
+      `*Contact :* ${formData.contact}`,
+      `*Type :* ${typeLabels[formData.creationType] || formData.creationType}`,
+      `*Événement :* ${eventLabels[formData.eventType] || formData.eventType}`,
+      `*Date souhaitée :* ${formData.date}`,
+      formData.guestCount ? `*Nombre de personnes :* ${formData.guestCount}` : '',
+      '',
+      '*Description :*',
+      formData.description
+    ].filter(Boolean);
+    return lines.join('\n');
   };
 
   if (submitted) {
@@ -94,14 +132,13 @@ export function CustomQuoteForm({ onClose }: CustomQuoteFormProps) {
 
           <div>
             <label className="block text-sm font-medium text-[#2D4A2A] mb-2">
-              Instagram / Téléphone *
+              Téléphone
             </label>
             <input
               type="text"
-              required
               value={formData.contact}
               onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
-              placeholder="@votre_instagram ou 06 12 34 56 78"
+              placeholder="06 12 34 56 78"
               className="w-full px-4 py-2 border border-[#2D4A2A]/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8A84B]"
             />
           </div>

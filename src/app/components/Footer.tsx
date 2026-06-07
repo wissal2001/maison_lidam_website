@@ -1,4 +1,4 @@
-import { Instagram } from 'lucide-react';
+import { Instagram, MessageCircle } from 'lucide-react';
 
 export function Footer() {
   const scrollToSection = (id: string) => {
@@ -26,7 +26,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm text-white/80">
-              Traiteur Marocain Maison · IDF · Fait Maison
+              Traiteur Marocain Maison · Fait Maison
             </p>
           </div>
 
@@ -50,17 +50,26 @@ export function Footer() {
                 </button>
               </li>
               <li>
-                <button onClick={() => scrollToSection('contact')} className="hover:text-[#C8A84B] transition-colors">
-                  Contact
+                <button onClick={() => scrollToSection('faq')} className="hover:text-[#C8A84B] transition-colors">
+                  FAQ
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Social Media */}
+          {/* Contact */}
           <div>
-            <h3 className="font-heading text-lg font-semibold mb-4">Suivez-nous</h3>
+            <h3 className="font-heading text-lg font-semibold mb-4">Contact</h3>
             <div className="space-y-3">
+              <a
+                href="https://wa.me/33764258783"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:text-[#C8A84B] transition-colors"
+              >
+                <MessageCircle className="w-5 h-5" />
+                <span className="text-sm">WhatsApp</span>
+              </a>
               <a
                 href="https://www.instagram.com/maison.lidam/"
                 target="_blank"
@@ -88,7 +97,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-white/20 pt-8 text-center space-y-2">
           <p className="text-sm text-white/80">
-            Artisan indépendant — commandes privées uniquement
+            Artisan indépendant
           </p>
           <p className="text-xs text-white/60">
             Prix indicatifs, susceptibles de varier selon la commande
