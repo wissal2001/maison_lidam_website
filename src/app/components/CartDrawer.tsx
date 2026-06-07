@@ -5,20 +5,24 @@ import { Product } from './products';
 export interface CartItem {
   product: Product;
   quantity: number;
+  unitType?: string;
 }
 
 interface CartDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   items: CartItem[];
-  onUpdateQuantity: (productId: string, quantity: number) => void;
-  onRemoveItem: (productId: string) => void;
+  onUpdateQuantity: (productId: string, quantity: number, unitType?: string) => void;
+  onRemoveItem: (productId: string, unitType?: string) => void;
   onCheckout: () => void;
 }
 
 export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemoveItem, onCheckout }: CartDrawerProps) {
   const subtotal = items.reduce((sum, item) => {
-    return sum + (item.product.price || 0) * item.quantity;
+    const unitPrice = item.unitType && item.product.unitOptions
+      ? item.product.unitOptions.find(o => o.id === item.unitType)?.price || item.product.price || 0
+      : item.product.price || 0;
+    return sum + unitPrice * item.quantity;
   }, 0);
 
   const handleCheckout = () => {
@@ -60,7 +64,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemoveI
             <div className="space-y-4">
               {items.map((item) => (
                 <div
-                  key={item.product.id}
+                  key={item.product.id + (item.unitType || '')}
                   className="bg-[#FAF6EE] rounded-lg p-4"
                 >
                   <div className="flex gap-3 mb-3">
@@ -70,11 +74,13 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemoveI
                         {item.product.name}
                       </h3>
                       <p className="text-sm text-[#4A2F1A]/70">
-                        {item.product.price} € / {item.product.unit}
+                        {item.unitType && item.product.unitOptions
+                          ? `${item.product.unitOptions.find(o => o.id === item.unitType)?.price || item.product.price} € / ${item.product.unitOptions.find(o => o.id === item.unitType)?.unit || item.product.unit}`
+                          : `${item.product.price} € / ${item.product.unit}`}
                       </p>
                     </div>
                     <button
-                      onClick={() => onRemoveItem(item.product.id)}
+                      onClick={() => onRemoveItem(item.product.id, item.unitType)}
                       className="p-2 hover:bg-white rounded-lg transition-colors h-fit"
                     >
                       <Trash2 className="w-4 h-4 text-red-500" />
@@ -84,7 +90,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemoveI
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <button
-                        onClick={() => onUpdateQuantity(item.product.id, Math.max(1, item.quantity - 1))}
+                        onClick={() => onUpdateQuantity(item.product.id, Math.max(1, item.quantity - 1), item.unitType)}
                         className="p-1 bg-white rounded hover:bg-[#e8e2d5] transition-colors"
                       >
                         <Minus className="w-4 h-4 text-[#2D4A2A]" />
@@ -93,14 +99,16 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemoveI
                         {item.quantity}
                       </span>
                       <button
-                        onClick={() => onUpdateQuantity(item.product.id, item.quantity + 1)}
+                        onClick={() => onUpdateQuantity(item.product.id, item.quantity + 1, item.unitType)}
                         className="p-1 bg-white rounded hover:bg-[#e8e2d5] transition-colors"
                       >
                         <Plus className="w-4 h-4 text-[#2D4A2A]" />
                       </button>
                     </div>
                     <div className="font-bold text-[#C8A84B]">
-                      {((item.product.price || 0) * item.quantity).toFixed(2)} €
+                      {((item.unitType && item.product.unitOptions
+                        ? item.product.unitOptions.find(o => o.id === item.unitType)?.price || item.product.price || 0
+                        : item.product.price || 0) * item.quantity).toFixed(2)} €
                     </div>
                   </div>
                 </div>

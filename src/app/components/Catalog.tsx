@@ -7,11 +7,11 @@ import { CartItem } from './CartDrawer';
 type Category = 'all' | 'gateaux' | 'mini-sales' | 'plateaux';
 
 interface CatalogProps {
-  onAddToCart: (product: Product) => void;
+  onAddToCart: (product: Product, unitType?: string) => void;
   onDevisClick: () => void;
   cartItems: CartItem[];
-  onUpdateQuantity: (productId: string, quantity: number) => void;
-  onRemoveItem: (productId: string) => void;
+  onUpdateQuantity: (productId: string, quantity: number, unitType?: string) => void;
+  onRemoveItem: (productId: string, unitType?: string) => void;
 }
 
 export function Catalog({ onAddToCart, onDevisClick, cartItems, onUpdateQuantity, onRemoveItem }: CatalogProps) {

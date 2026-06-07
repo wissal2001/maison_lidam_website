@@ -6,12 +6,12 @@ import { CartItem } from './CartDrawer';
 
 interface ProductCardProps {
   product: Product;
-  onAddToCart: (product: Product) => void;
+  onAddToCart: (product: Product, unitType?: string) => void;
   onQuickView: (product: Product) => void;
   onDevisClick: () => void;
   cartItems: CartItem[];
-  onUpdateQuantity: (productId: string, quantity: number) => void;
-  onRemoveItem: (productId: string) => void;
+  onUpdateQuantity: (productId: string, quantity: number, unitType?: string) => void;
+  onRemoveItem: (productId: string, unitType?: string) => void;
 }
 
 export function ProductCard({
@@ -20,8 +20,13 @@ export function ProductCard({
 }: ProductCardProps) {
   const [justAdded, setJustAdded] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
+  const [unitType, setUnitType] = useState(product.unitOptions?.[0]?.id || '');
 
-  const cartItem = cartItems.find(item => item.product.id === product.id);
+  const selectedOption = product.unitOptions?.find(o => o.id === unitType);
+  const unitPrice = selectedOption?.price ?? product.price;
+  const unitLabel = selectedOption?.unit ?? product.unit;
+
+  const cartItem = cartItems.find(item => item.product.id === product.id && item.unitType === unitType);
   const quantity = cartItem?.quantity || 0;
   const hasPrice = product.price !== null;
   const images = product.images || [];
@@ -35,7 +40,7 @@ export function ProductCard({
   }, [justAdded]);
 
   const handleAdd = () => {
-    onAddToCart(product);
+    onAddToCart(product, unitType);
     setJustAdded(true);
   };
 
@@ -144,13 +149,32 @@ export function ProductCard({
         <div className="mb-4">
           {hasPrice ? (
             <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-bold text-[#C8A84B]">{product.price} €</span>
-              <span className="text-sm text-[#4A2F1A]/60">/ {product.unit}</span>
+              <span className="text-2xl font-bold text-[#C8A84B]">{unitPrice} €</span>
+              <span className="text-sm text-[#4A2F1A]/60">/ {unitLabel}</span>
             </div>
           ) : (
             <div className="text-[#C8A84B] font-semibold">Sur devis</div>
           )}
         </div>
+
+        {/* Unit Options */}
+        {product.unitOptions && (
+          <div className="flex gap-2 mb-3">
+            {product.unitOptions.map((option) => (
+              <button
+                key={option.id}
+                onClick={() => setUnitType(option.id)}
+                className={`flex-1 text-xs py-1.5 rounded-md border transition-colors ${
+                  unitType === option.id
+                    ? 'border-[#2D4A2A] bg-[#2D4A2A]/5 text-[#2D4A2A] font-medium'
+                    : 'border-[#2D4A2A]/10 text-[#4A2F1A]/60 hover:border-[#2D4A2A]/30'
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Action Button or Quantity Controls */}
         {hasPrice ? (
@@ -159,9 +183,9 @@ export function ProductCard({
               <button
                 onClick={() => {
                   if (quantity === 1) {
-                    onRemoveItem(product.id);
+                    onRemoveItem(product.id, unitType);
                   } else {
-                    onUpdateQuantity(product.id, quantity - 1);
+                    onUpdateQuantity(product.id, quantity - 1, unitType);
                   }
                 }}
                 className="w-10 h-10 flex items-center justify-center bg-white rounded-lg hover:bg-[#e8e2d5] transition-colors text-[#2D4A2A]"

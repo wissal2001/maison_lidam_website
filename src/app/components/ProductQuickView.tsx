@@ -1,16 +1,21 @@
 import { X } from 'lucide-react';
+import { useState } from 'react';
 import { Product } from './products';
 import { MediaGallery } from './MediaGallery';
 
 interface ProductQuickViewProps {
   product: Product;
   onClose: () => void;
-  onAddToCart: (product: Product) => void;
+  onAddToCart: (product: Product, unitType?: string) => void;
   onDevisClick: () => void;
 }
 
 export function ProductQuickView({ product, onClose, onAddToCart, onDevisClick }: ProductQuickViewProps) {
   const hasPrice = product.price !== null;
+  const [unitType, setUnitType] = useState(product.unitOptions?.[0]?.id || '');
+  const selectedOption = product.unitOptions?.find(o => o.id === unitType);
+  const unitPrice = selectedOption?.price ?? product.price;
+  const unitLabel = selectedOption?.unit ?? product.unit;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" onClick={onClose}>
@@ -48,11 +53,11 @@ export function ProductQuickView({ product, onClose, onAddToCart, onDevisClick }
           </p>
 
           {/* Price */}
-          <div className="mb-6 p-4 bg-[#FAF6EE] rounded-lg">
+          <div className="mb-4 p-4 bg-[#FAF6EE] rounded-lg">
             {hasPrice ? (
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-bold text-[#C8A84B]">{product.price} €</span>
-                <span className="text-[#4A2F1A]/70">/ {product.unit}</span>
+                <span className="text-3xl font-bold text-[#C8A84B]">{unitPrice} €</span>
+                <span className="text-[#4A2F1A]/70">/ {unitLabel}</span>
               </div>
             ) : (
               <div className="text-xl text-[#C8A84B] font-semibold">
@@ -61,12 +66,31 @@ export function ProductQuickView({ product, onClose, onAddToCart, onDevisClick }
             )}
           </div>
 
+          {/* Unit Options */}
+          {product.unitOptions && (
+            <div className="flex gap-2 mb-6">
+              {product.unitOptions.map((option) => (
+                <button
+                  key={option.id}
+                  onClick={() => setUnitType(option.id)}
+                  className={`flex-1 text-sm py-2 rounded-lg border transition-colors ${
+                    unitType === option.id
+                      ? 'border-[#2D4A2A] bg-[#2D4A2A]/5 text-[#2D4A2A] font-medium'
+                      : 'border-[#2D4A2A]/10 text-[#4A2F1A]/60 hover:border-[#2D4A2A]/30'
+                  }`}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          )}
+
           {/* Actions */}
           <div className="flex gap-3">
             {hasPrice ? (
               <button
                 onClick={() => {
-                  onAddToCart(product);
+                  onAddToCart(product, unitType);
                   onClose();
                 }}
                 className="flex-1 bg-[#2D4A2A] text-white py-4 rounded-lg hover:bg-[#3D6338] transition-colors font-medium"

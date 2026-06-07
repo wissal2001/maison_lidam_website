@@ -18,30 +18,30 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isOrderFormOpen, setIsOrderFormOpen] = useState(false);
 
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = (product: Product, unitType?: string) => {
     setCartItems((prev) => {
-      const existing = prev.find((item) => item.product.id === product.id);
+      const existing = prev.find((item) => item.product.id === product.id && item.unitType === unitType);
       if (existing) {
         return prev.map((item) =>
-          item.product.id === product.id
+          item.product.id === product.id && item.unitType === unitType
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
-      return [...prev, { product, quantity: 1 }];
+      return [...prev, { product, quantity: 1, unitType }];
     });
   };
 
-  const handleUpdateQuantity = (productId: string, quantity: number) => {
+  const handleUpdateQuantity = (productId: string, quantity: number, unitType?: string) => {
     setCartItems((prev) =>
       prev.map((item) =>
-        item.product.id === productId ? { ...item, quantity } : item
+        item.product.id === productId && item.unitType === unitType ? { ...item, quantity } : item
       )
     );
   };
 
-  const handleRemoveItem = (productId: string) => {
-    setCartItems((prev) => prev.filter((item) => item.product.id !== productId));
+  const handleRemoveItem = (productId: string, unitType?: string) => {
+    setCartItems((prev) => prev.filter((item) => !(item.product.id === productId && item.unitType === unitType)));
   };
 
   const handleCheckout = () => {

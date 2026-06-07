@@ -7,8 +7,8 @@ interface OrderFormProps {
   onClose: () => void;
   onEditBasket: () => void;
   cartItems: CartItem[];
-  onUpdateQuantity: (productId: string, quantity: number) => void;
-  onRemoveItem: (productId: string) => void;
+  onUpdateQuantity: (productId: string, quantity: number, unitType?: string) => void;
+  onRemoveItem: (productId: string, unitType?: string) => void;
 }
 
 function getDeliveryPrice(postalCode: string): number {
@@ -58,7 +58,12 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
   const [validationError, setValidationError] = useState('');
 
   const subtotal = cartItems.reduce(
-    (sum, item) => sum + (item.product.price || 0) * item.quantity,
+    (sum, item) => {
+      const unitPrice = item.unitType && item.product.unitOptions
+        ? item.product.unitOptions.find(o => o.id === item.unitType)?.price || item.product.price || 0
+        : item.product.price || 0;
+      return sum + unitPrice * item.quantity;
+    },
     0
   );
   const deliveryFee = formData.deliveryMode === 'livraison'
@@ -69,8 +74,15 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
   const buildOrderMessage = () => {
     const items = cartItems
       .map(
-        (item) =>
-          `- ${item.product.name} x${item.quantity} = ${((item.product.price || 0) * item.quantity).toFixed(2)}€`
+        (item) => {
+          const unitPrice = item.unitType && item.product.unitOptions
+            ? item.product.unitOptions.find(o => o.id === item.unitType)?.price || item.product.price || 0
+            : item.product.price || 0;
+          const unitLabel = item.unitType && item.product.unitOptions
+            ? item.product.unitOptions.find(o => o.id === item.unitType)?.unit || item.product.unit
+            : item.product.unit;
+          return `- ${item.product.name} x${item.quantity}${item.unitType ? ` (${unitLabel})` : ''} = ${(unitPrice * item.quantity).toFixed(2)}€`;
+        }
       )
       .join('\n');
 
@@ -231,14 +243,22 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
                 </button>
               </div>
               <div className="space-y-2">
-                {cartItems.map((item) => (
-                  <div key={item.product.id} className="flex justify-between text-sm">
-                    <span className="text-[#2D4A2A]">{item.product.name} <span className="text-[#4A2F1A]/60">x{item.quantity}</span></span>
-                    <span className="font-semibold text-[#C8A84B]">
-                      {((item.product.price || 0) * item.quantity).toFixed(2)} €
-                    </span>
-                  </div>
-                ))}
+                {cartItems.map((item) => {
+                  const unitPrice = item.unitType && item.product.unitOptions
+                    ? item.product.unitOptions.find(o => o.id === item.unitType)?.price || item.product.price || 0
+                    : item.product.price || 0;
+                  const unitLabel = item.unitType && item.product.unitOptions
+                    ? item.product.unitOptions.find(o => o.id === item.unitType)?.unit || item.product.unit
+                    : item.product.unit;
+                  return (
+                    <div key={item.product.id + (item.unitType || '')} className="flex justify-between text-sm">
+                      <span className="text-[#2D4A2A]">{item.product.name} <span className="text-[#4A2F1A]/60">x{item.quantity}{item.unitType ? ` (${unitLabel})` : ''}</span></span>
+                      <span className="font-semibold text-[#C8A84B]">
+                        {(unitPrice * item.quantity).toFixed(2)} €
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
 
               <div className="space-y-1 text-sm">
