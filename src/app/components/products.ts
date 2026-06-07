@@ -111,7 +111,6 @@ export const products: Product[] = [
     emoji: '🍬',
     images: ['/images/cookies/cookies_2.jpeg', '/images/cookies/cookies_0.jpeg', '/images/cookies/cookies_1.jpeg'],
   },
-  ,
   {
     id: 'Zelija',
     name: 'Zelija aux Cacahuètes',
