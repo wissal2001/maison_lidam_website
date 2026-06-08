@@ -16,10 +16,10 @@ function getDeliveryPrice(postalCode: string): number {
   if (!postalCode) return 0;
 
   const deliveryZones: Record<string, number> = {
-    '91600': 0,
-    '91120': 0,
-    '91370': 2,
     '91': 5,
+    '91370': 2,
+    '91120': 2,
+    '91300': 0,
     '94': 5,
     '75': 7,
     '92': 7,

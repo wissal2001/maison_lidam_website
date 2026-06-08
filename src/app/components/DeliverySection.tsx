@@ -49,7 +49,7 @@ export function DeliverySection() {
           <div className="flex items-center gap-3 mb-4">
             <MapPin className="w-6 h-6 text-[#C8A84B]" />
             <h3 className="font-heading text-2xl font-bold text-[#2D4A2A]">
-              Calculez vos frais de livraison
+              Estimez vos frais de livraison
             </h3>
           </div>
           <input
@@ -78,39 +78,6 @@ export function DeliverySection() {
               </div>
             </div>
           )}
-        </div>
-
-        {/* Zones Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full bg-white rounded-xl overflow-hidden shadow-lg">
-            <thead>
-              <tr className="bg-[#2D4A2A] text-white">
-                <th className="px-6 py-4 text-left font-heading text-lg">Zone</th>
-                <th className="px-6 py-4 text-left font-heading text-lg">Départements / Villes</th>
-                <th className="px-6 py-4 text-right font-heading text-lg">Frais de livraison</th>
-              </tr>
-            </thead>
-            <tbody>
-              {deliveryZones.map((zone, index) => (
-                <tr
-                  key={index}
-                  className={`border-b border-[#2D4A2A]/10 ${
-                    index % 2 === 0 ? 'bg-[#FAF6EE]' : 'bg-white'
-                  } hover:bg-[#e8e2d5] transition-colors`}
-                >
-                  <td className="px-6 py-4 font-semibold text-[#2D4A2A]">
-                    {zone.zone}
-                  </td>
-                  <td className="px-6 py-4 text-[#4A2F1A]">
-                    {zone.areas}
-                  </td>
-                  <td className="px-6 py-4 text-right font-bold text-[#C8A84B]">
-                    {zone.price}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
 
         {/* Note */}
