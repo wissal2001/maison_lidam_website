@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { X } from 'lucide-react';
 import { useState } from 'react';
 import { CartItem } from './CartDrawer';
@@ -251,8 +252,21 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
                     ? item.product.unitOptions.find(o => o.id === item.unitType)?.unit || item.product.unit
                     : item.product.unit;
                   return (
-                    <div key={item.product.id + (item.unitType || '')} className="flex justify-between text-sm">
-                      <span className="text-[#2D4A2A]">{item.product.name} <span className="text-[#4A2F1A]/60">x{item.quantity}{item.unitType ? ` (${unitLabel})` : ''}</span></span>
+                    <div key={item.product.id + (item.unitType || '')} className="flex items-center gap-3 text-sm">
+                      {item.product.images?.[0] ? (
+                        <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+                          <Image
+                            src={item.product.images[0]}
+                            alt={item.product.name}
+                            fill
+                            className="object-cover"
+                            sizes="40px"
+                          />
+                        </div>
+                      ) : (
+                        <div className="text-2xl w-10 h-10 flex items-center justify-center flex-shrink-0">{item.product.emoji}</div>
+                      )}
+                      <span className="flex-1 text-[#2D4A2A]">{item.product.name} <span className="text-[#4A2F1A]/60">x{item.quantity}{item.unitType ? ` (${unitLabel})` : ''}</span></span>
                       <span className="font-semibold text-[#C8A84B]">
                         {(unitPrice * item.quantity).toFixed(2)} €
                       </span>

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { X, Minus, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Product } from './products';
@@ -68,7 +69,19 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemoveI
                   className="bg-[#FAF6EE] rounded-lg p-4"
                 >
                   <div className="flex gap-3 mb-3">
-                    <div className="text-3xl">{item.product.emoji}</div>
+                    {item.product.images?.[0] ? (
+                      <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+                        <Image
+                          src={item.product.images[0]}
+                          alt={item.product.name}
+                          fill
+                          className="object-cover"
+                          sizes="48px"
+                        />
+                      </div>
+                    ) : (
+                      <div className="text-3xl">{item.product.emoji}</div>
+                    )}
                     <div className="flex-1">
                       <h3 className="font-semibold text-[#2D4A2A] mb-1">
                         {item.product.name}
