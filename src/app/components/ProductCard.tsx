@@ -111,25 +111,25 @@ export function ProductCard({
           <>
             <button
               onClick={handlePrevImage}
-              className="absolute left-1 top-1/2 -translate-y-1/2 w-7 h-7 bg-white/70 hover:bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm text-[#2D4A2A]"
+              className="absolute left-1 top-1/2 -translate-y-1/2 w-8 h-8 md:w-7 md:h-7 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-sm text-[#2D4A2A]"
               aria-label="Image précédente"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-5 h-5 md:w-4 md:h-4" />
             </button>
             <button
               onClick={handleNextImage}
-              className="absolute right-1 top-1/2 -translate-y-1/2 w-7 h-7 bg-white/70 hover:bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm text-[#2D4A2A]"
+              className="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 md:w-7 md:h-7 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-sm text-[#2D4A2A]"
               aria-label="Image suivante"
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-5 h-5 md:w-4 md:h-4" />
             </button>
             {/* Dots */}
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 md:gap-1">
               {Array.from({ length: images.length }, (_, i) => (
                 <span
                   key={i}
-                  className={`w-1.5 h-1.5 rounded-full ${
-                    i === imageIndex ? 'bg-white w-3' : 'bg-white/60'
+                  className={`w-2 h-2 md:w-1.5 md:h-1.5 rounded-full ${
+                    i === imageIndex ? 'bg-white w-4 md:w-3' : 'bg-white/60'
                   } transition-all`}
                 />
               ))}
