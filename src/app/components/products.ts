@@ -30,7 +30,7 @@ export const products: Product[] = [
     unit: 'douzaine',
     unitOptions: [
       { id: 'weight', label: 'Au 250g', price: 12.5, unit: '250g' },
-      { id: 'piece', label: "À l'unité", price: 1.5, unit: 'pièce' },
+      { id: 'piece', label: "À l'unité", price: 1.2, unit: 'pièce' },
     ],
     category: 'gateaux',
     emoji: '🌙',
@@ -45,7 +45,7 @@ export const products: Product[] = [
     unit: 'douzaine',
     unitOptions: [
       { id: 'weight', label: 'Au 250g', price: 10, unit: '250g' },
-      { id: 'piece', label: "À l'unité", price: 1, unit: 'pièce' },
+      { id: 'piece', label: "À l'unité", price: 0.9, unit: 'pièce' },
     ],
     category: 'gateaux',
     emoji: '🌙',
@@ -59,8 +59,8 @@ export const products: Product[] = [
     price: 8,
     unit: 'douzaine',
     unitOptions: [
-      { id: 'weight', label: 'Au 250g', price: 8, unit: '250g' },
-      { id: 'piece', label: "À l'unité", price: 0.6, unit: 'pièce' },
+      { id: 'weight', label: 'Au 250g', price: 9, unit: '250g' },
+      { id: 'piece', label: "À l'unité", price: 0.8, unit: 'pièce' },
     ],
     category: 'gateaux',
     emoji: '🌙',
@@ -74,7 +74,7 @@ export const products: Product[] = [
     price: 7,
     unit: 'douzaine',
     unitOptions: [
-      { id: 'weight', label: 'Au 250g', price: 9, unit: '250g' },
+      { id: 'weight', label: 'Au 250g', price: 7.5, unit: '250g' },
       { id: 'piece', label: "À l'unité", price: 0.65, unit: 'pièce' },
     ],
     category: 'gateaux',
@@ -89,8 +89,8 @@ export const products: Product[] = [
     price: 7,
     unit: 'douzaine',
     unitOptions: [
-      { id: 'weight', label: 'Au 250g', price: 8, unit: '250g' },
-      { id: 'piece', label: "À l'unité", price: 0.5, unit: 'pièce' },
+      { id: 'weight', label: 'Au 250g', price: 9, unit: '250g' },
+      { id: 'piece', label: "À l'unité", price: 0.7, unit: 'pièce' },
     ],
     category: 'gateaux',
     emoji: '🥥',
@@ -105,7 +105,7 @@ export const products: Product[] = [
     unit: 'douzaine',
     unitOptions: [
       { id: 'weight', label: 'Au 250g', price: 8, unit: '250g' },
-      { id: 'piece', label: "À l'unité", price: 1, unit: 'pièce' }
+      { id: 'piece', label: "À l'unité", price: 0.7, unit: 'pièce' }
     ],
     category: 'gateaux',
     emoji: '🍬',
@@ -119,8 +119,8 @@ export const products: Product[] = [
     price: 8,
     unit: 'douzaine',
     unitOptions: [
-      { id: 'weight', label: 'Au 250g', price: 8, unit: '250g' },
-      { id: 'piece', label: "À l'unité", price: 1, unit: 'pièce' }
+      { id: 'weight', label: 'Au 250g', price: 9, unit: '250g' },
+      { id: 'piece', label: "À l'unité", price: 0.8, unit: 'pièce' }
     ],
     category: 'gateaux',
     emoji: '🍬',
@@ -134,8 +134,8 @@ export const products: Product[] = [
     price: 8,
     unit: 'douzaine',
     unitOptions: [
-      { id: 'weight', label: 'Au 250g', price: 8, unit: '250g' },
-      { id: 'piece', label: "À l'unité", price: 0.6, unit: 'pièce' },
+      { id: 'weight', label: 'Au 250g', price: 9, unit: '250g' },
+      { id: 'piece', label: "À l'unité", price: 0.8, unit: 'pièce' },
     ],
     category: 'gateaux',
     emoji: '🌙',
@@ -150,7 +150,7 @@ export const products: Product[] = [
     unit: 'douzaine',
     unitOptions: [
       { id: 'weight', label: 'Au 250g', price: 8, unit: '250g' },
-      { id: 'piece', label: "À l'unité", price: 0.6, unit: 'pièce' },
+      { id: 'piece', label: "À l'unité", price: 0.7, unit: 'pièce' },
     ],
     category: 'gateaux',
     emoji: '🌙',
@@ -164,8 +164,8 @@ export const products: Product[] = [
     price: 8,
     unit: 'douzaine',
     unitOptions: [
-      { id: 'weight', label: 'Au 250g', price: 10, unit: '250g' },
-      { id: 'piece', label: "À l'unité", price: 1, unit: 'pièce' },
+      { id: 'weight', label: 'Au 250g', price: 9, unit: '250g' },
+      { id: 'piece', label: "À l'unité", price: 0.8, unit: 'pièce' },
     ],
     category: 'gateaux',
     emoji: '🌙',
@@ -189,10 +189,10 @@ export const products: Product[] = [
     description: 'Sauce tomate, fromage, garniture fraîche (Thon/Végétarienne)',
     fullDescription: 'Mini pizzas préparées maison avec une pâte légère, sauce tomate maison, fromage et garnitures fraîches au choix (thon ou végétarienne). Parfaites pour vos apéritifs et buffets.',
     price: 10,
-    unit: 'dizaine',
+    unit: 'dix pièces',
     unitOptions: [
-      { id: 'dizaine', label: 'dizaine', price: 15, unit: 'dizaine' },
-      { id: 'piece', label: "À l'unité", price: 1.75, unit: 'pièce' },
+      { id: 'dix pièces', label: 'dix pièces', price: 17.5, unit: 'dix pièces' },
+      { id: 'piece', label: "À l'unité", price: 2, unit: 'pièce' },
     ],
     category: 'mini-sales',
     emoji: '🍕',
@@ -204,9 +204,9 @@ export const products: Product[] = [
     description: 'Pâte feuilletée, Amandes, viande/poisson, épices',
     fullDescription: 'Mini bastillas préparées maison avec une pâte feuilletée, amandes, viande/poisson et épices. Parfaites pour vos apéritifs et buffets.',
     price: 10,
-    unit: 'dizaine',
+    unit: 'dix pièces',
     unitOptions: [
-      { id: 'dizaine', label: 'dizaine', price: 40, unit: 'dizaine' },
+      { id: 'dix pièces', label: 'dix pièces', price: 40, unit: 'dix pièces' },
       { id: 'piece', label: "À l'unité", price: 4.5, unit: 'pièce' },
     ],
     category: 'mini-sales',
@@ -219,9 +219,9 @@ export const products: Product[] = [
     description: 'Pain maison, viande hachée, garniture fraîche',
     fullDescription: 'Mini burgers préparés maison avec un pain maison, de la viande hachée et des garnitures fraîches. Parfaits pour vos apéritifs et buffets.',
     price: 10,
-    unit: 'dizaine',
+    unit: 'dix pièces',
     unitOptions: [
-      { id: 'dizaine', label: 'dizaine', price: 27.5, unit: 'dizaine' },
+      { id: 'dix pièces', label: 'dix pièces', price: 26.5, unit: 'dix pièces' },
       { id: 'piece', label: "À l'unité", price: 3, unit: 'pièce' },
     ],
     category: 'mini-sales',
@@ -234,9 +234,9 @@ export const products: Product[] = [
     description: 'Pain grillé, garniture fraîche (Avocat/Thon/Végétarienne)',
     fullDescription: 'Mini toastes préparés maison avec un pain grillé, des garnitures fraîches. Parfaits pour vos apéritifs et buffets.',
     price: 10,
-    unit: 'dizaine',
+    unit: 'dix pièces',
     unitOptions: [
-      { id: 'dizaine', label: 'dizaine', price: 12.5, unit: 'dizaine' },
+      { id: 'dix pièces', label: 'dix pièces', price: 13, unit: 'dix pièces' },
       { id: 'piece', label: "À l'unité", price: 1.5, unit: 'pièce' },
     ],
     category: 'mini-sales',
@@ -249,9 +249,9 @@ export const products: Product[] = [
     description: 'Pain brioche, Pavot, garniture fraîche (Viande/Thon/Végétarienne), Fromage Cheddar',
     fullDescription: 'Mini brioches préparées maison avec un pain brioche moelleux, graines de pavot, garnitures fraîches (viande, thon ou végétarienne) et fromage cheddar. Parfaites pour vos apéritifs et buffets.',
     price: 10,
-    unit: 'dizaine',
+    unit: 'dix pièces',
     unitOptions: [
-      { id: 'dizaine', label: 'dizaine', price: 18, unit: 'dizaine' },
+      { id: 'dix pièces', label: 'dix pièces', price: 17.5, unit: 'dix pièces' },
       { id: 'piece', label: "À l'unité", price: 2, unit: 'pièce' },
     ],
     category: 'mini-sales',
@@ -264,10 +264,10 @@ export const products: Product[] = [
     description: 'Pain batbout, garniture fraîche (Viande/Thon/Végétarienne)',
     fullDescription: 'Mini batbouts préparées maison avec un pain batbout, des garnitures fraîches. Parfaites pour vos apéritifs et buffets.',
     price: 10,
-    unit: 'dizaine',
+    unit: 'dix pièces',
     unitOptions: [
-      { id: 'dizaine', label: 'dizaine', price: 16, unit: 'dizaine' },
-      { id: 'piece', label: "À l'unité", price: 1.75, unit: 'pièce' },
+      { id: 'dix pièces', label: 'dix pièces', price: 17.5, unit: 'dix pièces' },
+      { id: 'piece', label: "À l'unité", price: 2, unit: 'pièce' },
     ],
     category: 'mini-sales',
     emoji: '🍔',
