@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Eye, Minus, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, Eye, Minus, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Product } from './products';
 import { CartItem } from './CartDrawer';
@@ -21,6 +21,7 @@ export function ProductCard({
   const [justAdded, setJustAdded] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
   const [unitType, setUnitType] = useState(product.unitOptions?.[0]?.id || '');
+  const [expandedImage, setExpandedImage] = useState(false);
 
   const selectedOption = product.unitOptions?.find(o => o.id === unitType);
   const unitPrice = selectedOption?.price ?? product.price;
@@ -78,7 +79,7 @@ export function ProductCard({
       `}</style>
 
       {/* Image Area */}
-      <div className="relative h-48 bg-gradient-to-br from-[#FAF6EE] to-[#e8e2d5] flex items-center justify-center overflow-hidden">
+      <div className="relative h-48 bg-gradient-to-br from-[#FAF6EE] to-[#e8e2d5] flex items-center justify-center overflow-hidden cursor-pointer">
         {images[imageIndex] ? (
           <Image
             src={images[imageIndex]}
@@ -86,9 +87,10 @@ export function ProductCard({
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            onClick={() => setExpandedImage(true)}
           />
         ) : (
-          <div className="text-7xl">{product.emoji}</div>
+          <div className="text-7xl" onClick={() => setExpandedImage(true)}>{product.emoji}</div>
         )}
 
         {/* Category Badge */}
@@ -135,6 +137,37 @@ export function ProductCard({
           </>
         )}
       </div>
+
+      {/* Expanded image overlay */}
+      {expandedImage && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setExpandedImage(false)}
+        >
+          <button
+            onClick={() => setExpandedImage(false)}
+            className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white"
+          >
+            <X className="w-6 h-6" />
+          </button>
+
+          <div
+            className="relative w-full max-w-4xl max-h-[85vh] aspect-square"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {images[imageIndex] ? (
+              <Image
+                src={images[imageIndex]}
+                alt={product.name}
+                fill
+                className="object-contain"
+                sizes="(max-width: 1200px) 100vw, 56rem"
+                priority
+              />
+            ) : null}
+          </div>
+        </div>
+      )}
 
       {/* Content */}
       <div className="p-5">

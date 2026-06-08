@@ -19,6 +19,7 @@ interface CartDrawerProps {
 }
 
 export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemoveItem, onCheckout }: CartDrawerProps) {
+  const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const subtotal = items.reduce((sum, item) => {
     const unitPrice = item.unitType && item.product.unitOptions
       ? item.product.unitOptions.find(o => o.id === item.unitType)?.price || item.product.price || 0
@@ -70,7 +71,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemoveI
                 >
                   <div className="flex gap-3 mb-3">
                     {item.product.images?.[0] ? (
-                      <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+                      <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 cursor-pointer" onClick={() => setExpandedImage(item.product.images![0])}>
                         <Image
                           src={item.product.images[0]}
                           alt={item.product.name}
@@ -155,6 +156,34 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemoveI
             >
               Finaliser ma commande
             </button>
+          </div>
+        )}
+
+        {/* Expanded image overlay */}
+        {expandedImage && (
+          <div
+            className="fixed inset-0 z-[60] bg-black/90 flex items-center justify-center p-4"
+            onClick={() => setExpandedImage(null)}
+          >
+            <button
+              onClick={() => setExpandedImage(null)}
+              className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <div
+              className="relative w-full max-w-4xl max-h-[85vh] aspect-square"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={expandedImage}
+                alt=""
+                fill
+                className="object-contain"
+                sizes="(max-width: 1200px) 100vw, 56rem"
+                priority
+              />
+            </div>
           </div>
         )}
       </div>

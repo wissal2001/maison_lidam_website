@@ -41,6 +41,7 @@ function getDeliveryPrice(postalCode: string): number {
 }
 
 export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQuantity, onRemoveItem }: OrderFormProps) {
+  const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -254,7 +255,7 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
                   return (
                     <div key={item.product.id + (item.unitType || '')} className="flex items-center gap-3 text-sm">
                       {item.product.images?.[0] ? (
-                        <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+                        <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 cursor-pointer" onClick={() => setExpandedImage(item.product.images![0])}>
                           <Image
                             src={item.product.images[0]}
                             alt={item.product.name}
@@ -355,6 +356,34 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
             </button>
           </div>
         </div>
+
+        {/* Expanded image overlay */}
+        {expandedImage && (
+          <div
+            className="fixed inset-0 z-[60] bg-black/90 flex items-center justify-center p-4"
+            onClick={() => setExpandedImage(null)}
+          >
+            <button
+              onClick={() => setExpandedImage(null)}
+              className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <div
+              className="relative w-full max-w-4xl max-h-[85vh] aspect-square"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={expandedImage}
+                alt=""
+                fill
+                className="object-contain"
+                sizes="(max-width: 1200px) 100vw, 56rem"
+                priority
+              />
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -584,6 +613,34 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
           </button>
         </form>
       </div>
+
+      {/* Expanded image overlay */}
+      {expandedImage && (
+        <div
+          className="fixed inset-0 z-[60] bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setExpandedImage(null)}
+        >
+          <button
+            onClick={() => setExpandedImage(null)}
+            className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          <div
+            className="relative w-full max-w-4xl max-h-[85vh] aspect-square"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={expandedImage}
+              alt=""
+              fill
+              className="object-contain"
+              sizes="(max-width: 1200px) 100vw, 56rem"
+              priority
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
