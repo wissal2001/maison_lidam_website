@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { X, Eye, Minus, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Product } from './products';
 import { CartItem } from './CartDrawer';
 
@@ -22,6 +22,25 @@ export function ProductCard({
   const [imageIndex, setImageIndex] = useState(0);
   const [unitType, setUnitType] = useState(product.unitOptions?.[0]?.id || '');
   const [expandedImage, setExpandedImage] = useState(false);
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const diffX = e.changedTouches[0].clientX - touchStartX.current;
+    const diffY = e.changedTouches[0].clientY - touchStartY.current;
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+      if (diffX > 0) {
+        setImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+      } else {
+        setImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+      }
+    }
+  };
 
   const selectedOption = product.unitOptions?.find(o => o.id === unitType);
   const unitPrice = selectedOption?.price ?? product.price;
@@ -79,7 +98,11 @@ export function ProductCard({
       `}</style>
 
       {/* Image Area */}
-      <div className="relative h-48 bg-gradient-to-br from-[#FAF6EE] to-[#e8e2d5] flex items-center justify-center overflow-hidden cursor-pointer">
+      <div
+        className="relative h-48 bg-gradient-to-br from-[#FAF6EE] to-[#e8e2d5] flex items-center justify-center overflow-hidden cursor-pointer"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {images[imageIndex] ? (
           <Image
             src={images[imageIndex]}
@@ -101,7 +124,7 @@ export function ProductCard({
         {/* Quick View Button */}
         <button
           onClick={() => onQuickView(product)}
-          className="absolute top-3 right-3 p-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:bg-[#FAF6EE]"
+          className="absolute top-3 right-3 p-2 bg-white rounded-full opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity shadow-md hover:bg-[#FAF6EE]"
         >
           <Eye className="w-4 h-4 text-[#2D4A2A]" />
         </button>

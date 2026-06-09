@@ -34,7 +34,22 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🌙',
-    images: ['/images/kaaba/kaaba_2.jpeg', '/images/kaaba/kaaba_0.png', '/images/kaaba/kaaba_1.png'],
+    images: ['/images/kaaba/kaaba_2.png', '/images/kaaba/kaaba_1.png'],
+  },
+  {
+    id: 'cookies',
+    name: 'Cookies à la marocaine (3 versions)',
+    description: 'Pinky · Greeny · Yellowy',
+    fullDescription: 'Cookies marocains revisités en trois versions colorées : rose (Pinky), vert (Greeny) et jaune (Yellowy). Un mélange unique de tradition et de modernité.',
+    price: 8,
+    unit: 'douzaine',
+    unitOptions: [
+      { id: 'weight', label: 'Au 250g', price: 8, unit: '250g' },
+      { id: 'piece', label: "À l'unité", price: 0.7, unit: 'pièce' }
+    ],
+    category: 'gateaux',
+    emoji: '🍬',
+    images: ['/images/cookies/cookies_0.png', '/images/cookies/cookies_1.png'],
   },
   {
     id: 'Saqiya-amandes',
@@ -49,7 +64,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🌙',
-    images: ['/images/saqiya/saqiya_0.jpeg', '/images/saqiya/saqiya_1.jpeg'],
+    images: ['/images/saqiya/saqiya_1.jpeg', '/images/saqiya/saqiya_0.jpeg'],
   },
   {
     id: 'sables-chocolat-1',
@@ -79,7 +94,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🥥',
-    images: ['/images/richbond/richbond_3.jpeg','/images/richbond/richbond_0.jpeg', '/images/richbond/richbond_1.jpeg', '/images/richbond/richbond_2.jpeg'],
+    images: ['/images/richbond/richbond_0.png','/images/richbond/richbond_1.png'],
   },
   {
     id: 'Fekas',
@@ -94,22 +109,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🥥',
-    images: ['/images/fekas/fekas_1.jpeg', '/images/fekas/fekas_2.jpeg', '/images/fekas/fekas_0.jpeg'],
-  },
-  {
-    id: 'cookies',
-    name: 'Cookies à la marocaine (3 versions)',
-    description: 'Pinky · Greeny · Yellowy',
-    fullDescription: 'Cookies marocains revisités en trois versions colorées : rose (Pinky), vert (Greeny) et jaune (Yellowy). Un mélange unique de tradition et de modernité.',
-    price: 8,
-    unit: 'douzaine',
-    unitOptions: [
-      { id: 'weight', label: 'Au 250g', price: 8, unit: '250g' },
-      { id: 'piece', label: "À l'unité", price: 0.7, unit: 'pièce' }
-    ],
-    category: 'gateaux',
-    emoji: '🍬',
-    images: ['/images/cookies/cookies_2.jpeg', '/images/cookies/cookies_0.jpeg', '/images/cookies/cookies_1.jpeg'],
+    images: ['/images/fekas/fekas_0.png', '/images/fekas/fekas_1.png'],
   },
   {
     id: 'Zelija',
@@ -124,7 +124,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🍬',
-    images: ['/images/zelija/zelija_2.jpeg', '/images/zelija/zelija_0.jpeg', '/images/zelija/zelija_1.jpeg'],
+    images: ['/images/zelija/zelija_0.png', '/images/zelija/zelija_1.png'],
   },
   {
     id: 'gateau-sesame-cacahuetes',
@@ -139,7 +139,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🌙',
-    images: ['/images/gateau-sesame-cacahuetes/gateau-sesame-cacahuetes_0.jpeg', '/images/gateau-sesame-cacahuetes/gateau-sesame-cacahuetes_1.jpeg', '/images/gateau-sesame-cacahuetes/gateau-sesame-cacahuetes_2.jpeg'],
+    images: ['/images/gateau-sesame-cacahuetes/gateau-sesame-cacahuetes_2.jpeg'],
   },
   {
     id: 'ghriba',
@@ -154,7 +154,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🌙',
-    images: ['/images/ghriba/ghriba_0.jpeg', '/images/ghriba/ghriba_1.jpeg'],
+    images: ['/images/ghriba/ghriba_0.png', '/images/ghriba/ghriba_1.png'],
   },
   {
     id: 'Saqiya-cacahuetes',
@@ -169,7 +169,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🌙',
-    images: ['/images/saqiya-cacahuete/saqiya-cacahuetes_0.jpeg', '/images/saqiya-cacahuete/saqiya-cacahuetes_1.jpeg'],
+    images: ['/images/saqiya-cacahuete/saqiya-cacahuetes_0.png'],
   },
   // {
   //   id: 'chebakia',
@@ -196,7 +196,7 @@ export const products: Product[] = [
     ],
     category: 'mini-sales',
     emoji: '🍕',
-    images: ['/images/mini-pizza/mini-pizza_2.jpeg', '/images/mini-pizza/mini-pizza_1.jpeg', '/images/mini-pizza/mini-pizza_0.jpeg'],
+    images: ['/images/mini-pizza/mini-pizza_0.png'],
   },
   {
     id: 'mini-bastilla',
@@ -211,7 +211,7 @@ export const products: Product[] = [
     ],
     category: 'mini-sales',
     emoji: '🥧',
-    images: ['/images/mini-bastilla/mini-bastilla_1.webp', '/images/mini-bastilla/mini-bastilla_0.jpeg'],
+    images: ['/images/mini-bastilla/mini-bastilla_1.webp'],
   },
   {
     id: 'mini-burgers',
@@ -226,7 +226,7 @@ export const products: Product[] = [
     ],
     category: 'mini-sales',
     emoji: '🍔',
-    images: ['/images/mini-burgers/mini-burgers_1.jpeg', '/images/mini-burgers/mini-burgers_0.jpeg'],
+    images: ['/images/mini-burgers/mini-burgers_1.jpeg'],
   },
   {
     id: 'mini-toastes',
@@ -241,7 +241,7 @@ export const products: Product[] = [
     ],
     category: 'mini-sales',
     emoji: '🍔',
-    images: ['/images/mini-toastes/mini-toastes_1.webp', '/images/mini-toastes/mini-toastes_0.jpeg'],
+    images: ['/images/mini-toastes/mini-toastes_1.webp'],
   },
   {
     id: 'mini-brioches',
