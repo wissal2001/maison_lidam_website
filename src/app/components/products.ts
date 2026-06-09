@@ -354,7 +354,7 @@ export const products: Product[] = [
   },
   {
     id: 'plateau-varie-maison',
-    name: 'Plateau 100% Personnalisé Maison Lidam',
+    name: 'Plateau 100% Personnalisé Maison LIDAM',
     description: 'Sucré / salé, idéal événement',
     fullDescription: 'Notre plateau signature mixant sucré et/ou salé, parfait pour vos événements. Composition personnalisable selon vos préférences et le nombre de personnes.',
     price: null,

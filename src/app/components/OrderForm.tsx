@@ -101,7 +101,7 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
         : 'Non specifie';
 
     const lines = [
-      '*Nouvelle commande Maison Lidam*',
+      '*Nouvelle commande Maison LIDAM*',
       '',
       `*Client :* ${formData.firstName} ${formData.lastName}`,
       `*Telephone :* ${formData.contact}`,
@@ -607,7 +607,7 @@ export function OrderForm({ isOpen, onClose, onEditBasket, cartItems, onUpdateQu
           )}
           <button
             type="submit"
-            className="w-full bg-[#2D4A2A] text-white py-4 rounded-lg hover:bg-[#3D6338] transition-colors font-medium text-lg"
+            className="w-full bg-[#2D4A2A] text-white py-4 rounded-none hover:bg-[#3D6338] transition-colors font-medium text-lg"
           >
             Envoyer ma commande
           </button>

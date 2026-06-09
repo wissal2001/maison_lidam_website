@@ -93,7 +93,7 @@ export function ProductQuickView({ product, onClose, onAddToCart, onDevisClick }
                   onAddToCart(product, unitType);
                   onClose();
                 }}
-                className="flex-1 bg-[#2D4A2A] text-white py-4 rounded-lg hover:bg-[#3D6338] transition-colors font-medium"
+                className="flex-1 bg-[#2D4A2A] text-white py-4 rounded-none hover:bg-[#3D6338] transition-colors font-medium"
               >
                 Ajouter au panier
               </button>
@@ -103,14 +103,14 @@ export function ProductQuickView({ product, onClose, onAddToCart, onDevisClick }
                   onDevisClick();
                   onClose();
                 }}
-                className="flex-1 bg-[#C8A84B] text-[#2D4A2A] py-4 rounded-lg hover:bg-[#b89940] transition-colors font-medium"
+                className="flex-1 bg-[#C8A84B] text-[#2D4A2A] py-4 rounded-none hover:bg-[#b89940] transition-colors font-medium"
               >
                 Demander un devis
               </button>
             )}
             <button
               onClick={onClose}
-              className="px-6 py-4 border-2 border-[#2D4A2A] text-[#2D4A2A] rounded-lg hover:bg-[#FAF6EE] transition-colors font-medium"
+              className="px-6 py-4 border-2 border-[#2D4A2A] text-[#2D4A2A] rounded-none hover:bg-[#FAF6EE] transition-colors font-medium"
             >
               Fermer
             </button>

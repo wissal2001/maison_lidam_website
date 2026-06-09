@@ -267,7 +267,7 @@ export function ProductCard({
           ) : (
             <button
               onClick={handleAdd}
-              className="w-full bg-[#2D4A2A] text-white py-3 rounded-lg hover:bg-[#3D6338] transition-colors font-medium"
+              className="w-full bg-[#2D4A2A] text-white py-3 rounded-none hover:bg-[#3D6338] transition-colors font-medium"
             >
               Ajouter au panier
             </button>
@@ -275,7 +275,7 @@ export function ProductCard({
         ) : (
           <button
             onClick={onDevisClick}
-            className="w-full bg-[#C8A84B] text-[#2D4A2A] py-3 rounded-lg hover:bg-[#b89940] transition-colors font-medium"
+            className="w-full bg-[#C8A84B] text-[#2D4A2A] py-3 rounded-none hover:bg-[#b89940] transition-colors font-medium"
           >
             Demander un devis
           </button>

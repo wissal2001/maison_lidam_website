@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface HeroSlide {
@@ -12,12 +12,12 @@ interface HeroSlide {
 
 const slides: HeroSlide[] = [
   {
-    title: 'Bienvenue chez Maison Lidam',
-    subtitle: 'Traiteur marocain maison · Île-de-France',
+    title: 'Bienvenue chez Maison LIDAM',
+    subtitle: 'Traiteur Marocain · Pâtisserie Fine',
     bgColor: '#2D4A2A',
     textColor: '#FAF6EE',
-    cta1: 'Découvrir la boutique',
-    cta2: 'Demander un devis'
+    cta1: 'COMMANDER',
+    cta2: 'DEVIS'
   },
   {
     title: 'Plateaux & Buffets pour vos événements',
@@ -44,13 +44,6 @@ interface HeroSliderProps {
 
 export function HeroSlider({ onBoutiqueClick, onDevisClick }: HeroSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
@@ -98,7 +91,7 @@ export function HeroSlider({ onBoutiqueClick, onDevisClick }: HeroSliderProps) {
           {slide.cta1 && (
             <button
               onClick={handleCta1Click}
-              className="px-8 py-3 bg-[#C8A84B] text-[#2D4A2A] rounded-lg hover:bg-[#b89940] transition-colors font-medium"
+               className="px-8 py-3 bg-[#C8A84B] text-[#2D4A2A] rounded-none hover:bg-[#b89940] transition-colors font-medium"
             >
               {slide.cta1}
             </button>
@@ -106,7 +99,7 @@ export function HeroSlider({ onBoutiqueClick, onDevisClick }: HeroSliderProps) {
           {slide.cta2 && (
             <button
               onClick={handleCta2Click}
-              className="px-8 py-3 border-2 rounded-lg hover:bg-white/10 transition-colors font-medium"
+               className="px-8 py-3 border-2 rounded-none hover:bg-white/10 transition-colors font-medium"
               style={{
                 borderColor: slide.textColor,
                 color: slide.textColor

@@ -35,7 +35,7 @@ export function Catalog({ onAddToCart, onDevisClick, cartItems, onUpdateQuantity
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-[#2D4A2A] mb-4">
-            Entrez dans l'Univers Maison Lidam
+            Entrez dans l'Univers Maison LIDAM
           </h2>
           <p className="text-lg text-[#4A2F1A]/80">
             Pâtisserie fine marocaine · Sur commande · Île-de-France

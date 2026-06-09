@@ -228,7 +228,7 @@ export function CustomQuoteForm({ onClose }: CustomQuoteFormProps) {
 
           <button
             type="submit"
-            className="w-full bg-[#C8A84B] text-[#2D4A2A] py-4 rounded-lg hover:bg-[#b89940] transition-colors font-medium text-lg"
+            className="w-full bg-[#C8A84B] text-[#2D4A2A] py-4 rounded-none hover:bg-[#b89940] transition-colors font-medium text-lg"
           >
             Envoyer ma demande
           </button>

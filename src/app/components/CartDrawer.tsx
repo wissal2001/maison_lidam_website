@@ -152,7 +152,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemoveI
             {/* Checkout Button */}
             <button
               onClick={handleCheckout}
-              className="w-full bg-[#2D4A2A] text-white py-3 rounded-lg hover:bg-[#3D6338] transition-colors font-medium"
+              className="w-full bg-[#2D4A2A] text-white py-3 rounded-none hover:bg-[#3D6338] transition-colors font-medium"
             >
               Finaliser ma commande
             </button>
