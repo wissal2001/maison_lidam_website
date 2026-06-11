@@ -114,15 +114,17 @@ export function HeroSlider({ onBoutiqueClick, onDevisClick }: HeroSliderProps) {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors backdrop-blur-sm"
+        className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/10 hover:bg-black/20 transition-colors backdrop-blur-sm flex items-center justify-center shadow-lg touch-manipulation"
         style={{ color: slide.textColor }}
+        aria-label="Slide précédente"
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors backdrop-blur-sm"
+        className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/10 hover:bg-black/20 transition-colors backdrop-blur-sm flex items-center justify-center shadow-lg touch-manipulation"
         style={{ color: slide.textColor }}
+        aria-label="Slide suivante"
       >
         <ChevronRight className="w-6 h-6" />
       </button>
