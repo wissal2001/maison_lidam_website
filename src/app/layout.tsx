@@ -6,10 +6,7 @@ export const metadata: Metadata = {
   title: 'Site web Maison Lidam',
   description:
     'Professional e-boutique showcasing Moroccan homemade pastries and catering services with product catalog, dynamic cart, delivery fees, and custom order forms.',
-  icons: {
-    icon: '/images/logo/maison_lidam_logo-removebg-preview.png',
-    apple: '/images/logo/maison_lidam_logo-removebg-preview.png',
-  },
+
 }
 
 export default function RootLayout({
