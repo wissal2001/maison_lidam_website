@@ -34,7 +34,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🌙',
-    images: ['/images/kaaba/kaaba_2.png', '/images/kaaba/kaaba_1.png'],
+    images: ['/images/cornes-gazelle/cornes-gazelle_2.webp', '/images/cornes-gazelle/cornes-gazelle_1.webp'],
   },
   {
     id: 'cookies',
@@ -49,7 +49,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🍬',
-    images: ['/images/cookies/cookies_0.png', '/images/cookies/cookies_1.png'],
+    images: ['/images/cookies/cookies_0.webp', '/images/cookies/cookies_1.webp'],
   },
   {
     id: 'Saqiya-amandes',
@@ -64,7 +64,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🌙',
-    images: ['/images/saqiya/saqiya_1.jpeg', '/images/saqiya/saqiya_0.jpeg'],
+    images: ['/images/saqiya-amandes/saqiya-amandes_1.webp', '/images/saqiya-amandes/saqiya-amandes_0.webp'],
   },
   {
     id: 'sables-chocolat-1',
@@ -79,7 +79,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🌙',
-    images: ['/images/sables-chocolat-1/sables-chocolat-1_0.jpeg', '/images/sables-chocolat-1/sables-chocolat-1_1.jpeg'],
+    images: ['/images/sables-chocolat-1/sables-chocolat-1_0.webp', '/images/sables-chocolat-1/sables-chocolat-1_1.webp'],
   },
   {
     id: 'richbond',
@@ -94,7 +94,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🥥',
-    images: ['/images/richbond/richbond_0.png','/images/richbond/richbond_1.png'],
+    images: ['/images/richbond/richbond_0.webp','/images/richbond/richbond_1.webp'],
   },
   {
     id: 'Fekas',
@@ -109,7 +109,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🥥',
-    images: ['/images/fekas/fekas_0.png', '/images/fekas/fekas_1.png'],
+    images: ['/images/fekas/fekas_0.webp', '/images/fekas/fekas_1.webp'],
   },
   {
     id: 'Zelija',
@@ -124,7 +124,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🍬',
-    images: ['/images/zelija/zelija_0.png', '/images/zelija/zelija_1.png'],
+    images: ['/images/zelija/zelija_0.webp', '/images/zelija/zelija_1.webp'],
   },
   {
     id: 'gateau-sesame-cacahuetes',
@@ -139,7 +139,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🌙',
-    images: ['/images/gateau-sesame-cacahuetes/gateau-sesame-cacahuetes_2.jpeg'],
+    images: ['/images/gateau-sesame-cacahuetes/gateau-sesame-cacahuetes_2.webp'],
   },
   {
     id: 'ghriba',
@@ -154,7 +154,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🌙',
-    images: ['/images/ghriba/ghriba_0.png', '/images/ghriba/ghriba_1.png'],
+    images: ['/images/ghriba/ghriba_0.webp', '/images/ghriba/ghriba_1.webp'],
   },
   {
     id: 'Saqiya-cacahuetes',
@@ -169,7 +169,7 @@ export const products: Product[] = [
     ],
     category: 'gateaux',
     emoji: '🌙',
-    images: ['/images/saqiya-cacahuete/saqiya-cacahuetes_0.png'],
+    images: ['/images/saqiya-cacahuetes/saqiya-cacahuetes_0.webp'],
   },
   // {
   //   id: 'chebakia',
@@ -180,7 +180,7 @@ export const products: Product[] = [
   //   unit: 'douzaine',
   //   category: 'gateaux',
   //   emoji: '🌺',
-  //   images: ['/images/fekas.webp']
+  //   images: ['/images/fekas/fekas_0.webp']
   // }, Sellou??
   // ------------------------- MINI-SALÉS & BUFFET -------------------------
   {
@@ -196,7 +196,7 @@ export const products: Product[] = [
     ],
     category: 'mini-sales',
     emoji: '🍕',
-    images: ['/images/mini-pizza/mini-pizza_0.png'],
+    images: ['/images/mini-pizzas/mini-pizzas_0.webp'],
   },
   {
     id: 'mini-bastilla',
@@ -226,7 +226,7 @@ export const products: Product[] = [
     ],
     category: 'mini-sales',
     emoji: '🍔',
-    images: ['/images/mini-burgers/mini-burgers_1.jpeg'],
+    images: ['/images/mini-burgers/mini-burgers_1.webp'],
   },
   {
     id: 'mini-toastes',
@@ -256,7 +256,7 @@ export const products: Product[] = [
     ],
     category: 'mini-sales',
     emoji: '🍔',
-    images: ['/images/mini-brioches/mini-brioches_0.jpeg'],
+    images: ['/images/mini-brioches/mini-brioches_0.webp'],
   },
   {
     id: 'mini-batbouts',
@@ -271,7 +271,7 @@ export const products: Product[] = [
     ],
     category: 'mini-sales',
     emoji: '🍔',
-    images: ['/images/mini-batbouts/mini-batbouts_0.png'],
+    images: ['/images/mini-batbouts/mini-batbouts_0.webp'],
   },
   {
     id: 'mini-sale-40',
@@ -282,7 +282,7 @@ export const products: Product[] = [
     unit: 'plateau',
     category: 'mini-sales',
     emoji: '🍽️',
-    images: ['/images/assortiments-sales/plateau-sale_0.jpeg']
+    images: ['/images/assortiments-sales/plateau-sale_0.webp']
   },
   {
     id: 'buffet-sale-sur-mesure',
@@ -293,7 +293,7 @@ export const products: Product[] = [
     unit: 'sur devis',
     category: 'mini-sales',
     emoji: '🎉',
-    images: ['/images/buffet/buffet_0.jpg']
+    images: ['/images/buffet/buffet_0.webp']
   },
 
   // ------------------------- PLATEAUX -------------------------
@@ -306,7 +306,7 @@ export const products: Product[] = [
     unit: 'plateau',
     category: 'plateaux',
     emoji: '🎁',
-    images: ['/images/assortiments-sucres/plateau-sucre-26_0.jpeg']
+    images: ['/images/assortiments-sucres/plateau-sucre-26_0.webp']
   },
   {
     id: 'plateau-sucre-20',
@@ -317,7 +317,7 @@ export const products: Product[] = [
     unit: 'plateau',
     category: 'plateaux',
     emoji: '🎁',
-    images: ['/images/assortiments-sucres/plateau-sucre-22_0.jpeg', '/images/assortiments-sucres/plateau-sucre-21_bis_0.jpeg', '/images/assortiments-sucres/plateau-sucre-21_0.jpeg']
+    images: ['/images/assortiments-sucres/plateau-sucre-22_0.webp', '/images/assortiments-sucres/plateau-sucre-21_bis_0.webp', '/images/assortiments-sucres/plateau-sucre-21_0.webp']
   },
   {
     id: 'plateau-sale-40',
@@ -328,7 +328,7 @@ export const products: Product[] = [
     unit: 'plateau',
     category: 'plateaux',
     emoji: '🍽️',
-    images: ['/images/assortiments-sales/plateau-sale_0.jpeg']
+    images: ['/images/assortiments-sales/plateau-sale_0.webp']
   },
   {
     id: 'plateau-sale-25',
@@ -339,7 +339,7 @@ export const products: Product[] = [
     unit: 'plateau',
     category: 'plateaux',
     emoji: '🍽️',
-    images: ['/images/assortiments-sales/plateau-sale_0.jpeg']
+    images: ['/images/assortiments-sales/plateau-sale_0.webp']
   },
   {
     id: 'box-cadeau',
@@ -350,7 +350,7 @@ export const products: Product[] = [
     unit: 'sur devis',
     category: 'plateaux',
     emoji: '🎀',
-    images: ['/images/box/box_4.jpeg', '/images/box/box_2.jpeg', '/images/box/box_1.jpeg', '/images/box/box_0.jpeg']
+    images: ['/images/box/box_4.webp', '/images/box/box_2.webp', '/images/box/box_1.webp', '/images/box/box_0.webp']
   },
   {
     id: 'plateau-varie-maison',
@@ -361,6 +361,6 @@ export const products: Product[] = [
     unit: 'sur devis',
     category: 'plateaux',
     emoji: '🏡',
-    images: ['/images/assortiments-sales/plateau-sale_0.jpeg', '/images/assortiments-sucres/plateau-sucre-36_0.jpeg']
+    images: ['/images/assortiments-sales/plateau-sale_0.webp', '/images/assortiments-sucres/plateau-sucre-36_0.webp']
   },
 ];

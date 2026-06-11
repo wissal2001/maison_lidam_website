@@ -45,6 +45,7 @@ export function Navigation({ cartItemCount, onCartClick, onDevisClick }: Navigat
                 width={48}
                 height={48}
                 className="w-full h-full object-cover"
+                priority
               />
             </div>
             <div>

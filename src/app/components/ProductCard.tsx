@@ -12,11 +12,12 @@ interface ProductCardProps {
   cartItems: CartItem[];
   onUpdateQuantity: (productId: string, quantity: number, unitType?: string) => void;
   onRemoveItem: (productId: string, unitType?: string) => void;
+  priority?: boolean;
 }
 
 export function ProductCard({
   product, onAddToCart, onQuickView, onDevisClick,
-  cartItems, onUpdateQuantity, onRemoveItem
+  cartItems, onUpdateQuantity, onRemoveItem, priority
 }: ProductCardProps) {
   const [justAdded, setJustAdded] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
@@ -103,16 +104,17 @@ export function ProductCard({
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {images[imageIndex] ? (
-          <Image
-            src={images[imageIndex]}
-            alt={product.name}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            onClick={() => setExpandedImage(true)}
-          />
-        ) : (
+          {images[imageIndex] ? (
+            <Image
+              src={images[imageIndex]}
+              alt={product.name}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              onClick={() => setExpandedImage(true)}
+              {...(priority ? { priority: true } : {})}
+            />
+          ) : (
           <div className="text-7xl" onClick={() => setExpandedImage(true)}>{product.emoji}</div>
         )}
 
