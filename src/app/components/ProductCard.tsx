@@ -99,7 +99,7 @@ export function ProductCard({
 
       {/* Image Area */}
       <div
-        className="relative h-48 bg-gradient-to-br from-[#FAF6EE] to-[#e8e2d5] flex items-center justify-center overflow-hidden cursor-pointer"
+        className="relative h-48 bg-gradient-to-br from-[#FAF6EE] to-[#e8e2d5] flex items-center justify-center overflow-hidden cursor-pointer touch-manipulation"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
@@ -134,17 +134,17 @@ export function ProductCard({
           <>
             <button
               onClick={handlePrevImage}
-              className="absolute left-1 top-1/2 -translate-y-1/2 w-8 h-8 md:w-7 md:h-7 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-sm text-[#2D4A2A]"
+              className="absolute left-1 top-1/2 -translate-y-1/2 w-10 h-10 md:w-9 md:h-9 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-sm text-[#2D4A2A]"
               aria-label="Image précédente"
             >
-              <ChevronLeft className="w-5 h-5 md:w-4 md:h-4" />
+              <ChevronLeft className="w-6 h-6 md:w-5 md:h-5" />
             </button>
             <button
               onClick={handleNextImage}
-              className="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 md:w-7 md:h-7 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-sm text-[#2D4A2A]"
+              className="absolute right-1 top-1/2 -translate-y-1/2 w-10 h-10 md:w-9 md:h-9 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-sm text-[#2D4A2A]"
               aria-label="Image suivante"
             >
-              <ChevronRight className="w-5 h-5 md:w-4 md:h-4" />
+              <ChevronRight className="w-6 h-6 md:w-5 md:h-5" />
             </button>
             {/* Dots */}
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 md:gap-1">
@@ -166,10 +166,12 @@ export function ProductCard({
         <div
           className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
           onClick={() => setExpandedImage(false)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
           <button
             onClick={() => setExpandedImage(false)}
-            className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white"
+            className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white z-10"
           >
             <X className="w-6 h-6" />
           </button>
@@ -189,6 +191,37 @@ export function ProductCard({
               />
             ) : null}
           </div>
+
+          {hasMultipleImages && (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); handlePrevImage(e); }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors text-white z-10"
+                aria-label="Image précédente"
+              >
+                <ChevronLeft className="w-6 h-6 md:w-7 md:h-7" />
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); handleNextImage(e); }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors text-white z-10"
+                aria-label="Image suivante"
+              >
+                <ChevronRight className="w-6 h-6 md:w-7 md:h-7" />
+              </button>
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {Array.from({ length: images.length }, (_, i) => (
+                  <button
+                    key={i}
+                    onClick={(e) => { e.stopPropagation(); setImageIndex(i); }}
+                    className={`w-2.5 h-2.5 rounded-full transition-all ${
+                      i === imageIndex ? 'bg-white w-5' : 'bg-white/40 hover:bg-white/70'
+                    }`}
+                    aria-label={`Aller à l'image ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
 

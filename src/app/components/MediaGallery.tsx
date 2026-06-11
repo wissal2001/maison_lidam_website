@@ -52,24 +52,24 @@ export function MediaGallery({ images, productName, emoji }: MediaGalleryProps) 
           />
         </div>
 
-        {total > 1 && (
-          <>
-            <button
-              onClick={(e) => { e.stopPropagation(); goPrev(); }}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-colors text-[#2D4A2A]"
-              aria-label="Image précédente"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={(e) => { e.stopPropagation(); goNext(); }}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-colors text-[#2D4A2A]"
-              aria-label="Image suivante"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </>
-        )}
+          {total > 1 && (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); goPrev(); }}
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 md:w-9 md:h-9 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-colors text-[#2D4A2A]"
+                aria-label="Image précédente"
+              >
+                <ChevronLeft className="w-5 h-5 md:w-4 md:h-4" />
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); goNext(); }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 md:w-9 md:h-9 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-colors text-[#2D4A2A]"
+                aria-label="Image suivante"
+              >
+                <ChevronRight className="w-5 h-5 md:w-4 md:h-4" />
+              </button>
+            </>
+          )}
 
         {total > 1 && (
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
@@ -120,17 +120,17 @@ export function MediaGallery({ images, productName, emoji }: MediaGalleryProps) 
             <>
               <button
                 onClick={(e) => goPrev(e)}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors text-white"
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors text-white"
                 aria-label="Image précédente"
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-6 h-6 md:w-7 md:h-7" />
               </button>
               <button
                 onClick={(e) => goNext(e)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors text-white"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors text-white"
                 aria-label="Image suivante"
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-6 h-6 md:w-7 md:h-7" />
               </button>
             </>
           )}
